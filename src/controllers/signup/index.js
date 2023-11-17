@@ -41,6 +41,7 @@ export const Signup = () => {
         <Container className="box">
             <Row><Col className="text-center"><h2>Sign Up</h2></Col></Row>
             <Row>
+                
                 <Col md={4}></Col>
                 <Col md={4}>
                     <Form onSubmit={submitLogin}>
