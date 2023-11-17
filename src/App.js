@@ -1,10 +1,9 @@
 import './App.css';
 import { Button } from 'react-bootstrap';
-import CustomNavBar from './navbar';
+import {CustomNavBar} from './components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CarDetail from './car-detail';
-import Login from './login';
-import Signup from './signup';
+import { CarDetail, Login, Signup } from './controllers';
+
 
 function App() {
   return (
@@ -14,7 +13,7 @@ function App() {
         <CustomNavBar />
 
         <Routes>
-          <Route path="/cars" element={<CarDetail />} />
+          <Route path="/cars/:sku" element={<CarDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
