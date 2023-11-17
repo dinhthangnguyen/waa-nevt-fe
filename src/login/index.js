@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import Button from 'react-bootstrap/Button';
@@ -7,28 +6,18 @@ import Form from 'react-bootstrap/Form';
 import "./index.css"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useAPI from "../api";
 
 const Login = () => {
     const initialData = {email: "", password: ""};
     const [user, setUser] = useState(initialData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const client = axios.create({
-        baseURL: "http://localhost:8080/auth/signin"});
-
-    useEffect(() => {
-        
-    }, [])
+    const {PostClient} = useAPI();
 
 
     const login = async (user) => {
-        const config = {
-            headers: {
-                "Content-Type": "Application/json"
-            }
-        }
-        const response = await client.post("http://localhost:8080/auth/signin",user,config);
+        const response = await PostClient("/auth/signin",user);
         if (response.status == 200) {
             dispatch({type: "login", user: response.data})
             navigate("/");
@@ -38,7 +27,6 @@ const Login = () => {
     const submitLogin = async (e) => {
         e.preventDefault();
         // TODO: validate user
-
         console.log("submit login");
         await login(user);
 
