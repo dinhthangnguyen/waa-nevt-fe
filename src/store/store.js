@@ -10,6 +10,11 @@ const reducer = (state = initialData, action) => {
         localStorage.setItem("myuser", JSON.stringify(action.user));
         return { ...state, user: action.user, token: action.user.token };
     }
+    if (action.type ===  "logout") {
+        localStorage.setItem("token", null);
+        localStorage.setItem("myuser", null);
+        return {...state, user: null, token: ""}
+    }
 
     return state;
 }

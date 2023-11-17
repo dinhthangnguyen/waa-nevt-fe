@@ -41,8 +41,8 @@ const Login = () => {
         <Container className="box">
             <Row>
                 
-                <Col xs={3}></Col>
-                <Col xs={6}>
+                <Col md={3}></Col>
+                <Col md={6}>
                     <Form onSubmit={submitLogin}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
@@ -65,7 +65,7 @@ const Login = () => {
                     </Form>
 
                 </Col>
-                <Col xs={3}></Col>
+                <Col md={3}></Col>
 
             </Row>
             {/* <Row>

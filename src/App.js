@@ -9,13 +9,14 @@ import Signup from './signup';
 function App() {
   return (
     <div className="App">
-      <CustomNavBar/>
 
       <BrowserRouter>
+        <CustomNavBar />
+
         <Routes>
-          <Route path="/cars" element={<CarDetail />}/>
-          <Route path="/login" element={<Login />}/>
-          <Route path="/signup" element={<Signup />}/>
+          <Route path="/cars" element={<CarDetail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
         </Routes>
       </BrowserRouter>
