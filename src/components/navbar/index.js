@@ -5,7 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-function CustomNavBar() {
+export function CustomNavBar() {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,4 +41,3 @@ function CustomNavBar() {
   );
 }
 
-export default CustomNavBar;
