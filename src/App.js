@@ -2,11 +2,7 @@ import './App.css';
 import { Button } from 'react-bootstrap';
 import {CustomNavBar} from './components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CarDetail from './car-detail';
-import Login from './login';
-import Signup from './signup';
-import HomePage from './homepage';
-import { CarDetail, Login, Signup } from './controllers';
+import { CarDetail, Login, Signup, HomePage } from './controllers';
 
 function App() {
   return (
