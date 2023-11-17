@@ -2,8 +2,7 @@ import './App.css';
 import { Button } from 'react-bootstrap';
 import {CustomNavBar} from './components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { CarDetail, Login, Signup } from './controllers';
-
+import { CarDetail, Login, Signup, HomePage } from './controllers';
 
 function App() {
   return (
@@ -16,7 +15,7 @@ function App() {
           <Route path="/cars/:sku" element={<CarDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-
+          <Route path="/" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
     </div>
