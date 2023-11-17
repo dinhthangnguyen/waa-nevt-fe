@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import ViewCarItem from "./caritem";
-import useAPI from "../../api";
+import { ViewCarItem } from "./caritem";
+import useAPI from "../../../api";
 import { Col, Container, Row } from "react-bootstrap";
 
-const TodayPick = () => {
+export const TodayPick = () => {
 
     const [cars, setCars] = useState([]);
 
@@ -12,7 +12,7 @@ const TodayPick = () => {
     useEffect(() => {
         async function fetchData() {
             const response = await GetClient("/api/cars/todaypick");
-            if (response.status == 200) {
+            if (response.status === 200) {
                 setCars(response.data);
             }
         }
@@ -21,7 +21,7 @@ const TodayPick = () => {
 
     return (
         <Container>
-            <Row><Col className="text-center"><h2>Today Pick</h2></Col></Row>
+            <Row><Col className="text-center"><h2>TODAY'S PICK</h2></Col></Row>
             <Row>
                 {cars.map((car) => (
                     <Col key={car.productNumber} sm={4}>
@@ -32,5 +32,3 @@ const TodayPick = () => {
         </Container>
     )
 }
-
-export default TodayPick;
