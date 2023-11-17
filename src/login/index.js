@@ -1,14 +1,18 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
+import "./index.css"
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const initialData = {email: "", password: ""};
     const [user, setUser] = useState(initialData);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const client = axios.create({
         baseURL: "http://localhost:8080/auth/signin"});
@@ -26,7 +30,8 @@ const Login = () => {
         }
         const response = await client.post("http://localhost:8080/auth/signin",user,config);
         if (response.status == 200) {
-            console.log(response.data);
+            dispatch({type: "login", user: response.data})
+            navigate("/");
         }
     }
 
@@ -35,7 +40,7 @@ const Login = () => {
         // TODO: validate user
 
         console.log("submit login");
-        let temp = await login(user);
+        await login(user);
 
     }
 
@@ -45,8 +50,9 @@ const Login = () => {
 
     return (
 
-        <Container>
+        <Container className="box">
             <Row>
+                
                 <Col xs={3}></Col>
                 <Col xs={6}>
                     <Form onSubmit={submitLogin}>

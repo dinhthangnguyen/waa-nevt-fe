@@ -2,8 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useSelector } from 'react-redux';
 
 function CustomNavBar() {
+  const user = useSelector(state=>state.user);
+
   return (
     <Navbar bg="dark" data-bs-theme="dark">
     <Container>
@@ -16,6 +19,12 @@ function CustomNavBar() {
             <NavDropdown title="LOGIN" id="basic-nav-dropdown">
               <NavDropdown.Item href="/login">Log In</NavDropdown.Item>
               <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/logout">Log out</NavDropdown.Item>
+
+            </NavDropdown>
+
+            <NavDropdown title={user.firstName + " " + user.lastName} id="basic-nav-dropdown">
               <NavDropdown.Divider />
               <NavDropdown.Item href="/logout">Log out</NavDropdown.Item>
 
