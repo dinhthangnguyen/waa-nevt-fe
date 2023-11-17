@@ -1,6 +1,6 @@
 import './App.css';
 import { Button } from 'react-bootstrap';
-import {CustomNavBar} from './components';
+import {CustomFooter, CustomNavBar} from './components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { CarDetail, Login, Signup, HomePage } from './controllers';
 
@@ -17,6 +17,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
+        <CustomFooter />
       </BrowserRouter>
     </div>
   );
