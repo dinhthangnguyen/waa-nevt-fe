@@ -1,9 +1,14 @@
 import React from "react";
-import TodayPick from "../../components/homepage/todaypick";
+import { TodayPick, Trending, Affordable } from "./components";
+import "./index.css"
 export const HomePage = () => {
 
     return (
-        <TodayPick />
+        <>
+            <TodayPick />
+            <Trending />
+            <Affordable />
+        </>
     )
 
 }
