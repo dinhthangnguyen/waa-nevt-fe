@@ -2,49 +2,23 @@ import React, { useEffect, useState } from "react";
 import useAPI from "../../api";
 import { useParams } from "react-router-dom";
 import { Col, Container, Row, Image } from "react-bootstrap";
-import Form from 'react-bootstrap/Form';
 import "./index.css";
-import ListGroup from 'react-bootstrap/ListGroup';
-
-const ImageGallery = ({ images, firstHalf }) => {
-    const [imageSet, setImageSet] = useState([]);
-    useEffect(() => {
-        const size = parseInt(images.length / 2);
-        if (firstHalf) {
-            let temp = [];
-            for (let index = 0; index <= size; index++) {
-                temp.push(images[index]);
-            }
-            setImageSet(temp);
-        } else {
-            let temp = [];
-            for (let index = size + 1; index < images.length; index++) {
-                temp.push(images[index]);
-            }
-            setImageSet(temp);
-        }
-    }, [images, firstHalf]);
-
-    return (
-        <Col lg={6} className="mb-6 mb-lg-0" id={firstHalf ? "leftGallery" : "rightGalery"} >
-            {imageSet.map(e => {
-                return <Image key={e} src={e} rounded className="w-100 shadow-1-strong mb-4" />
-            })}
-        </Col>
-    )
-}
+import { ImageGallery } from "./components";
 
 const AtributeType = ({ attributeType, selectAtrribute }) => {
+    const select = (attribute) => {
+        selectAtrribute({type: attributeType.type, attribute: attribute})
+    }
     return (
         <div className="option">
             <h5 id="attributeType" className="card-title">{attributeType.type.toUpperCase()} OPTIONS</h5>
             <div className="a-content">
                 {attributeType.items.map(e => {
-                    return <div className="cell" key={e.value}>
+                    return <div className={e.selected ? "cell-selected" : "cell"} key={e.value} onClick={select.bind(this,e)}>
                         <p className=" text-uppercase">
                             {e.value}
                         </p>
-                        <p className=" text-success">${e.additionalPrice}</p>
+                        <p className={e.selected ? "": " text-success"}>${e.additionalPrice}</p>
                     </div>
                 })}
             </div>
@@ -56,6 +30,7 @@ export const CarDetail = () => {
     const params = useParams();
     const { GetClient } = useAPI();
     const [car, setCar] = useState();
+    const [selectedAttributes, SetSelectedAttributes] = useState([]);
 
     useEffect(() => {
         async function fetching() {
@@ -68,9 +43,26 @@ export const CarDetail = () => {
         const response = await GetClient("/api/cars/" + sku);
         if (response.status === 200) {
             setCar(response.data);
-            console.log(response.data);
         }
     }
+
+    const selectAtrribute = (data) => {
+        console.log(data.type);
+        let temp = {...car};
+        let index = temp.attributeTypes.findIndex(e=> e.type === data.type);
+        let typeItem = temp.attributeTypes[index];
+        typeItem.items = typeItem.items.map(a => {
+            return {...a, selected: false};
+        })
+
+        let itemIndex = typeItem.items.findIndex(e=> e.value === data.attribute.value);
+        let attribute = {...typeItem.items[itemIndex], selected: true};
+        typeItem.items[itemIndex] = attribute;
+        temp.attributeTypes[index] = typeItem;
+        setCar(temp);
+        console.log(car);
+    }
+
     return (
         <div className="car">
             {car && (
@@ -78,7 +70,6 @@ export const CarDetail = () => {
                     <Row>
                         <div>
                             <h1 id="carName">{car.name.toUpperCase()}</h1>
-
                         </div>
                         <div>
                             <h3 className="text-danger" id="rentPrice">$ {car.basePrice}</h3>
@@ -97,7 +88,7 @@ export const CarDetail = () => {
                     <Row className="text-center">
                         {car.attributeTypes.map(attributeType => (
                             <Col lg={12} className="mb-6 mb-lg-0" id={attributeType.type} >
-                                <AtributeType attributeType={attributeType} />
+                                <AtributeType attributeType={attributeType} selectAtrribute={selectAtrribute} />
                             </Col>
                         ))}
                     </Row>
