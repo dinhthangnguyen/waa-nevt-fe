@@ -1,46 +1,8 @@
-.a-content {
+.addcart {
     margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
 }
 
-.cell {
-    width: 100px;
-    border: 1.5px  dashed black;
-    border-radius: 10px;
-    margin: 0 5px;
-    margin-top: 0px;
-    padding:  5px 0px;
-    font-weight: 500;
+.car-header {
+    margin-bottom: 20px;
 }
-
-.cell:hover {
-    border: 2.5px ridge green;
-}
-
-.cell-selected {
-    width: 100px;
-    border-radius: 10px;
-    margin: 0 5px;
-    margin-top: 0px;
-    padding:  5px 0px;
-    font-weight: 500;
-
-    border: 2.5px dashed green;
-    background-color: green;
-    color: white;
-    /* border: none; */
-    /* background-color: green; */
-}
-
-p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.option {
-    margin: 20px 0;
-}
-
+ 
