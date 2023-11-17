@@ -10,7 +10,6 @@ function App() {
 
       <BrowserRouter>
         <CustomNavBar />
-
         <Routes>
           <Route path="/cars/:sku" element={<CarDetail />} />
           <Route path="/login" element={<Login />} />

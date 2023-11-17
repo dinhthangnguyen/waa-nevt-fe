@@ -17,7 +17,6 @@ const ImageGallery = ({ images, firstHalf }) => {
             }
             setImageSet(temp);
         } else {
-            console.log("right: " + size);
             let temp = [];
             for (let index = size + 1; index < images.length; index++) {
                 temp.push(images[index]);
@@ -37,25 +36,16 @@ const ImageGallery = ({ images, firstHalf }) => {
 
 const AtributeType = ({ attributeType, selectAtrribute }) => {
     return (
-        <div >
-            <h1 id="attributeType">{attributeType.type.toUpperCase()} OPTIONS</h1>
-            <div className="box">
+        <div className="option">
+            <h5 id="attributeType" className="card-title">{attributeType.type.toUpperCase()} OPTIONS</h5>
+            <div className="a-content">
                 {attributeType.items.map(e => {
                     return <div className="cell" key={e.value}>
-                        <h5 className="card-text text-success">
+                        <p className=" text-uppercase">
                             {e.value}
-                        </h5>
-                        <div>
-                            {e.additionalPrice}
-                        </div>
+                        </p>
+                        <p className=" text-success">${e.additionalPrice}</p>
                     </div>
-                    // return <Form.Check // prettier-ignore
-                    //     inline
-                    //     type={"radio"}
-                    //     id={e.value}
-                    //     label={`${e.value} ${e.additionalPrice}`}
-                    // />
-
                 })}
             </div>
         </div>
