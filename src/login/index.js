@@ -9,17 +9,17 @@ import { useNavigate } from "react-router-dom";
 import useAPI from "../api";
 
 const Login = () => {
-    const initialData = {email: "", password: ""};
+    const initialData = { email: "", password: "" };
     const [user, setUser] = useState(initialData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {PostClient} = useAPI();
+    const { PostClient } = useAPI();
 
 
     const login = async (user) => {
-        const response = await PostClient("/auth/signin",user);
+        const response = await PostClient("/auth/signin", user);
         if (response.status == 200) {
-            dispatch({type: "login", user: response.data})
+            dispatch({ type: "login", user: response.data })
             navigate("/");
         }
     }
@@ -33,20 +33,21 @@ const Login = () => {
     }
 
     const handleFieldChange = (e) => {
-        setUser({...user, [e.target.name]: e.target.value})
+        setUser({ ...user, [e.target.name]: e.target.value })
     }
 
     return (
 
         <Container className="box">
+            <Row><Col className="text-center"><h2>Log In</h2></Col></Row>
             <Row>
-                
-                <Col md={3}></Col>
-                <Col md={6}>
+
+                <Col md={4}></Col>
+                <Col md={4}>
                     <Form onSubmit={submitLogin}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" name="email" value={user.email} onChange={handleFieldChange}/>
+                            <Form.Control type="email" placeholder="Enter email" name="email" value={user.email} onChange={handleFieldChange} />
                             <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                             </Form.Text>
@@ -65,19 +66,9 @@ const Login = () => {
                     </Form>
 
                 </Col>
-                <Col md={3}></Col>
+                <Col md={4}></Col>
 
             </Row>
-            {/* <Row>
-                <Col>
-                    <h2>Log In</h2>
-                    <form action={submitLogin}>
-                        <input type="text" required placeholder="Email" />
-                        <input type="password" required placeholder="password" />
-                        <button type="submit">LogIn</button>
-                    </form>
-                </Col>
-            </Row> */}
         </Container>
 
     );
