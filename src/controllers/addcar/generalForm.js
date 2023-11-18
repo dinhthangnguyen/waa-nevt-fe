@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./index.css"
@@ -69,9 +68,7 @@ export const AddCarGeneralForm = () => {
                             <Form.Label>Stock Quantity</Form.Label>
                             <Form.Control type="number" placeholder="Stock Quantity" name="stockQuantity" value={car.stockQuantity} onChange={handleFieldChange} />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Next Step
-                        </Button>
+                        <Button type="submit" className="mt-auto btn btn-dark non-border-button">Next Step(1/4)</Button>
                     </Form>
 
                 </Col>

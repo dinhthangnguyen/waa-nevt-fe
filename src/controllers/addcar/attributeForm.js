@@ -1,136 +1,107 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./index.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 export const AddCarAttributeForm = (props) => {
-    
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
-    const inittialCar = useSelector(state => state.car);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const [car, setCar] = useState(inittialCar);
+  const inittialCar = useSelector(state => state.car);
 
-    const handleFieldChange = (e) => {
-        setCar({ ...car, [e.target.name]: e.target.value })
-    }
+  const [car, setCar] = useState(inittialCar);
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-        dispatch({ type : 'addcar', car});
-        props.history.push("/managa-car/attribute");
-      }
-    
-      const [carName, setCarName] = useState('');
-      const [attributeTypes, setAttributeTypes] = useState([{ type: 'color', values: [{ valueName: '', price: '' }] }]);
-    
-      const handleInputChange = (typeIndex, valueIndex, event) => {
-        const { name, value } = event.target;
-        const updatedAttributeTypes = [...attributeTypes];
-        updatedAttributeTypes[typeIndex].values[valueIndex][name] = value;
-        setAttributeTypes(updatedAttributeTypes);
-      };
-    
-      const addAttributeType = () => {
-        setAttributeTypes([...attributeTypes, { type: '', values: [{ valueName: '', price: '' }] }]);
-      };
-    
-      const addAttributeValue = (typeIndex) => {
-        const updatedAttributeTypes = [...attributeTypes];
-        updatedAttributeTypes[typeIndex].values.push({ valueName: '', price: '' });
-        setAttributeTypes(updatedAttributeTypes);
-      };
-    
-      const submitForm = () => {
-        const formData = {
-          carName,
-          attributeTypes,
-        };
-    
-        // Log or send formData to the server using fetch or another method
-        console.log(formData);
-    
-        // Example: Send data to the server using fetch
-        fetch('/your-server-endpoint', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Success:', data);
-            // Handle success response from the server
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            // Handle error
-          });
-      };
+  const [attributeTypes, setAttributeTypes] = useState([{ type: '', values: [{ value: '', price: 0 }] }]);
 
-    return (
-        <Container className="box">
-            <div>
-      <h2>Create Car Form</h2>
-      <form>
-        <label htmlFor="carName">Car Name:</label>
-        <input
-          type="text"
-          id="carName"
-          name="carName"
-          value={carName}
-          onChange={(e) => setCarName(e.target.value)}
-          required
-        />
+  const handleInputChange = (typeIndex, valueIndex, event) => {
+    const { name, value } = event.target;
+    const updatedAttributeTypes = [...attributeTypes];
+    if(name === "attributeType")
+      updatedAttributeTypes[typeIndex].type = value;
+    else
+      updatedAttributeTypes[typeIndex].values[valueIndex][name] = value;
+    setAttributeTypes(updatedAttributeTypes);
+  };
 
-        <div>
-          {attributeTypes.map((attribute, typeIndex) => (
-            <div key={typeIndex}>
-              <label htmlFor={`attributeType${typeIndex}`}>Attribute Type:</label>
-              <input
-                id={`attributeType${typeIndex}`}
-                name={`attributeType${typeIndex}`}
-                value={attribute.type}
-                onChange={(e) => handleInputChange(typeIndex, 0, e)} // Assumes only one value initially
-              />
+  const addAttributeType = () => {
+    setAttributeTypes([...attributeTypes, { type: '', values: [{ value: '', price: 0 }] }]);
+  };
 
-              {attribute.values.map((value, valueIndex) => (
-                <div key={valueIndex}>
-                  <label htmlFor={`valueName${typeIndex}_${valueIndex}`}>Value Name:</label>
-                  <input
+  const addAttributeValue = (typeIndex) => {
+    const updatedAttributeTypes = [...attributeTypes];
+    updatedAttributeTypes[typeIndex].values.push({ value: '', price: 0 });
+    setAttributeTypes(updatedAttributeTypes);
+  };
+
+
+  const handleOnSubmit = (e) => {
+    console.log(attributeTypes);
+    setCar({...car, attributeTypes});
+    console.log(car);
+    dispatch({ type : 'addcar', car});
+    navigate("/manage-car/images");
+  }
+
+  return (
+    <Container className="box">
+      <Row><Col className="text-center"><h2>Set Up Attribute</h2></Col></Row>
+      <Row>
+        <Col md={4}></Col>
+        <Col md={4}>
+          <Form onSubmit={handleOnSubmit}>
+            {attributeTypes.map((attribute, typeIndex) => (
+              <Fragment key={typeIndex}>
+                <Form.Group className="mb-3" controlId={`attributeType${typeIndex}`}>
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
                     type="text"
-                    id={`valueName${typeIndex}_${valueIndex}`}
-                    name={`valueName${typeIndex}_${valueIndex}`}
-                    value={value.valueName}
-                    onChange={(e) => handleInputChange(typeIndex, valueIndex, e)}
+                    placeholder="Type"
+                    name={`attributeType`}
+                    value={attribute.type}
+                    onChange={(e) => handleInputChange(typeIndex, 0, e)}
                   />
+                </Form.Group>
+                {attribute.values.map((value, valueIndex) => (
+                  <Row key={valueIndex}>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId={`value${typeIndex}_${valueIndex}`}>
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Value"
+                          name={`value`}
+                          value={value.name}
+                          onChange={(e) => handleInputChange(typeIndex, valueIndex, e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId={`price${typeIndex}_${valueIndex}`}>
+                        <Form.Label>Price</Form.Label>
+                        <Form.Control
+                          type="number"
+                          placeholder="Price"
+                          name={`price`}
+                          value={value.price}
+                          onChange={(e) => handleInputChange(typeIndex, valueIndex, e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                ))}
+                <Button type="button" className="mt-auto btn btn-info non-border-button" onClick={() => addAttributeValue(typeIndex)}>Add Attribute Value</Button>
+              </Fragment>
+            ))}
+            <Button type="button" className="mt-auto btn btn-success non-border-button" onClick={addAttributeType}>Add Attribute Type</Button>
+            <Button type="submit" className="mt-auto btn btn-dark non-border-button">Next Step(2/4)</Button>
+          </Form>
+        </Col>
+        <Col md={4}></Col>
 
-                  <label htmlFor={`price${typeIndex}_${valueIndex}`}>Price:</label>
-                  <input
-                    type="text"
-                    id={`price${typeIndex}_${valueIndex}`}
-                    name={`price${typeIndex}_${valueIndex}`}
-                    value={value.price}
-                    onChange={(e) => handleInputChange(typeIndex, valueIndex, e)}
-                  />
-                </div>
-              ))}
-              <button type="button" onClick={() => addAttributeValue(typeIndex)}>Add Attribute Value</button>
-            </div>
-          ))}
-        </div>
-
-        <button type="button" onClick={addAttributeType}>Add Attribute Type</button>
-        <button type="button" onClick={submitForm}>Create Car</button>
-      </form>
-    </div>
-        </Container>
-
-    );
+      </Row>
+    </Container >
+  );
 }
