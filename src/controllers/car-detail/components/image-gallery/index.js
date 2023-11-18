@@ -24,7 +24,7 @@ export const ImageGallery = ({ images, firstHalf }) => {
     return (
         <Col lg={6} className="mb-6 mb-lg-0" id={firstHalf ? "leftGallery" : "rightGalery"} >
             {imageSet.map(e => {
-                return <Image key={e} src={host + "/images/"+ e} rounded className="w-100 shadow-1-strong mb-4" />
+                return <Image key={e} src={host + "/api/images/"+ e} rounded className="w-100 shadow-1-strong mb-4" />
             })}
         </Col>
     )
