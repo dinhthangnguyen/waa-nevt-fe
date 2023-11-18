@@ -1,5 +1,6 @@
-import { Container, Row, Col,Card, Form, Image, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Image, Button } from "react-bootstrap";
 import "./index.css";
+import { host } from "../../api";
 
 export const CartCell = ({ item, deleteF, onNumberChange }) => {
     let options = [];
@@ -12,12 +13,12 @@ export const CartCell = ({ item, deleteF, onNumberChange }) => {
     const numberChange = (e) => {
         e.preventDefault();
         const value = parseInt(e.target.value);
-        const unitPrice = item.totalPrice /item.number;
+        const unitPrice = item.totalPrice / item.number;
 
         if (value) {
-            let temp = {...item, number: value, totalPrice: unitPrice * value}
+            let temp = { ...item, number: value, totalPrice: unitPrice * value }
             onNumberChange(item, temp);
-        } 
+        }
     }
 
     const handleDelete = (e) => {
@@ -29,7 +30,7 @@ export const CartCell = ({ item, deleteF, onNumberChange }) => {
         <Container className="cartitem">
             <Row >
                 <Col lg={3}>
-                    <Image rounded className="w-100" src={item.car.images[0]} />
+                    <Image rounded className="w-100" src={host +"/images/" + item.car.images[0]} />
                 </Col>
                 <Col lg={6}>
                     <div>
@@ -62,7 +63,7 @@ export const CartCell = ({ item, deleteF, onNumberChange }) => {
                 </Col>
                 <Col lg={3}>
                     <div className="mb-6 mb-lg-0 text-center cart-select"  >
-                        <Form.Select onChange={numberChange} value={item.number} aria-label="Default select example">
+                        <Form.Select onChange={numberChange} disabled={!onNumberChange} value={item.number} aria-label="Default select example">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -70,8 +71,9 @@ export const CartCell = ({ item, deleteF, onNumberChange }) => {
                         </Form.Select>
                     </div>
                     <div className="button-box">
-                        <Button value={item.car.productNumber} rounded variant="danger" onClick={handleDelete} >Delete</Button>
-
+                        {deleteF &&
+                            <Button value={item.car.productNumber} rounded variant="danger" onClick={handleDelete} >Delete</Button>
+                        }
                     </div>
                 </Col>
             </Row>

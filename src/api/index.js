@@ -1,5 +1,5 @@
 import axios from "axios";
-const host = "http://localhost:8080";
+export const host = "http://localhost:8080";
 const client = axios.create({ baseURL: host });
 
 const useAPI = () => {
