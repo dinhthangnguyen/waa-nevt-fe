@@ -60,8 +60,8 @@ export const CarDetail = () => {
 
     const addToCart = (e) => {
         e.preventDefault();
-        dispatch({ type: "addcart", item: car, number: number })
-        navigate("/carts");
+        dispatch({ type: "cart", item: {car: car, number: number, totalPrice: totalPrice} })
+        navigate("/cart");
     }
 
     const numberChange = (e) => {
@@ -128,7 +128,7 @@ export const CarDetail = () => {
 
                         <Col lg={3} />
                         <Col lg={6} className=" gap-2 text-center addcart">
-                            <Button onClick={addToCart} disabled={!select} size="lg" variant="dark">Add To Cart</Button>
+                            <Button className="btn btn-dark" onClick={addToCart} disabled={!select} size="lg" variant="dark">Add To Cart</Button>
                         </Col>
                         <Col lg={3} />
 

@@ -13,8 +13,9 @@ export function CustomNavBar() {
   const logout = () => {
     dispatch({ type: "logout" });
     navigate("/");
-
   }
+
+  
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container>
