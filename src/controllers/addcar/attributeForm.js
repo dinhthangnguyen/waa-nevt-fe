@@ -2,46 +2,49 @@ import { useState, Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import "./index.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-export const AddCarAttributeForm = (props) => {
+import "./index.css"
 
+export const AddCarAttributeForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const inittialCar = useSelector(state => state.car);
-
-  const [car, setCar] = useState(inittialCar);
-
-  const [attributeTypes, setAttributeTypes] = useState([{ type: '', values: [{ value: '', price: 0 }] }]);
+  const [car, setCar] = useState({...inittialCar, attributeTypes: [{ type: '', items: [{ value: '', additionalPrice: 0 }] }]});
 
   const handleInputChange = (typeIndex, valueIndex, event) => {
     const { name, value } = event.target;
-    const updatedAttributeTypes = [...attributeTypes];
+    const updatedAttributeTypes = [...car.attributeTypes];
     if(name === "attributeType")
       updatedAttributeTypes[typeIndex].type = value;
     else
-      updatedAttributeTypes[typeIndex].values[valueIndex][name] = value;
-    setAttributeTypes(updatedAttributeTypes);
+      updatedAttributeTypes[typeIndex].items[valueIndex][name] = value;
+
+    setCar({...car, attributeTypes: updatedAttributeTypes});
   };
 
   const addAttributeType = () => {
-    setAttributeTypes([...attributeTypes, { type: '', values: [{ value: '', price: 0 }] }]);
+    const updatedAttributeTypes = [...car.attributeTypes, { type: '', items: [{ value: '', additionalPrice: 0 }] }];
+    setCar({...car, attributeTypes: updatedAttributeTypes});
   };
 
   const addAttributeValue = (typeIndex) => {
-    const updatedAttributeTypes = [...attributeTypes];
-    updatedAttributeTypes[typeIndex].values.push({ value: '', price: 0 });
-    setAttributeTypes(updatedAttributeTypes);
+    const updatedAttributeTypes = [...car.attributeTypes];
+    updatedAttributeTypes[typeIndex].items.push({ value: '', additionalPrice: 0 });
+    setCar({...car, attributeTypes: updatedAttributeTypes});
   };
 
+  const handleOnSubmit = () => {
+    console.log(car.attributeTypes);
+ 
+    // setCar((prevCar) => {
+    //   let carWithAttribute = {...prevCar, attributeTypes: attributeTypes};
+    //   return carWithAttribute;
+    // })
 
-  const handleOnSubmit = (e) => {
-    console.log(attributeTypes);
-    setCar({...car, attributeTypes});
     console.log(car);
-    dispatch({ type : 'addcar', car});
+    dispatch({ type : 'manageCar', car});
     navigate("/manage-car/images");
   }
 
@@ -52,7 +55,7 @@ export const AddCarAttributeForm = (props) => {
         <Col md={4}></Col>
         <Col md={4}>
           <Form onSubmit={handleOnSubmit}>
-            {attributeTypes.map((attribute, typeIndex) => (
+            {car.attributeTypes.map((attribute, typeIndex) => (
               <Fragment key={typeIndex}>
                 <Form.Group className="mb-3" controlId={`attributeType${typeIndex}`}>
                   <Form.Label>Name</Form.Label>
@@ -64,7 +67,7 @@ export const AddCarAttributeForm = (props) => {
                     onChange={(e) => handleInputChange(typeIndex, 0, e)}
                   />
                 </Form.Group>
-                {attribute.values.map((value, valueIndex) => (
+                {attribute.items.map((value, valueIndex) => (
                   <Row key={valueIndex}>
                     <Col md={6}>
                       <Form.Group className="mb-3" controlId={`value${typeIndex}_${valueIndex}`}>
@@ -80,12 +83,12 @@ export const AddCarAttributeForm = (props) => {
                     </Col>
                     <Col md={6}>
                       <Form.Group className="mb-3" controlId={`price${typeIndex}_${valueIndex}`}>
-                        <Form.Label>Price</Form.Label>
+                        <Form.Label>Additional Price</Form.Label>
                         <Form.Control
                           type="number"
-                          placeholder="Price"
-                          name={`price`}
-                          value={value.price}
+                          placeholder="Additional Price"
+                          name={`additionalPrice`}
+                          value={value.additionalPrice}
                           onChange={(e) => handleInputChange(typeIndex, valueIndex, e)}
                         />
                       </Form.Group>
@@ -96,7 +99,7 @@ export const AddCarAttributeForm = (props) => {
               </Fragment>
             ))}
             <Button type="button" className="mt-auto btn btn-success non-border-button" onClick={addAttributeType}>Add Attribute Type</Button>
-            <Button type="submit" className="mt-auto btn btn-dark non-border-button">Next Step(2/4)</Button>
+            <Button type="submit" className="mt-auto btn btn-dark non-border-button">Next Step(2/3)</Button>
           </Form>
         </Col>
         <Col md={4}></Col>

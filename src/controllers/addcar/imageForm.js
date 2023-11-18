@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Image from 'react-bootstrap/Image';
 import Form from 'react-bootstrap/Form';
 import useAPI from "../../api";
+import DeleteImage from "../../images/delete-logo.png"
 export const AddCarImageForm = () => {
     const baseImageURL = "http://localhost:8080/api/images";
     const dispatch = useDispatch();
@@ -14,17 +15,26 @@ export const AddCarImageForm = () => {
     const { PostClient } = useAPI();
 
     const inittialCar = useSelector(state => state.car);
+    const [car, setCar] = useState({...inittialCar, images: []});
 
-    const [car, setCar] = useState(inittialCar);
-
-    const [images, setImages] = useState([]);
-    
     const [selectedFile, setSelectedFile] = useState(null);
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-        dispatch({ type: 'addcar', car });
-        navigate("/manage-car/preview");
+    const handleOnSubmit = async(e) => {
+        e.preventDefault();    
+        
+        console.log(car);
+        
+        await  createCar(car); 
+    }
+
+    const createCar = async (car) => {
+        console.log(car);
+        const response = await PostClient("/api/cars", car);
+        if (response.status === 200) {
+            let productNumber = response.data.productNumber;
+            dispatch({ type: 'clearCar', car });
+            navigate(`/cars/${productNumber}`);
+        }
     }
 
     const uploadImage = async() => {
@@ -39,7 +49,11 @@ export const AddCarImageForm = () => {
         const response = await PostClient("/api/images/upload", formData);
 
         if (response.status === 200) {
-            setImages([...images, response.data]);
+            setCar((prevCar) => {
+                let carWithImage = {...prevCar, images: [...car.images, response.data]};  // Use the updated images state
+                console.log(carWithImage);
+                return carWithImage;
+            });         
         }
     }
 
@@ -56,6 +70,11 @@ export const AddCarImageForm = () => {
         imagePreviewElement.style.maxHeight = '500px';
         // Show the image preview
         imagePreviewElement.style.display = 'block';
+    }
+
+    const removeImage = (image) => {
+        setCar({...car,images: car.images.filter(o => o !== image)});
+        console.log(car);
     }
 
     return (
@@ -75,10 +94,10 @@ export const AddCarImageForm = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {images.map(image => (
-                                        <tr>
+                                    {car.images.map(image => (
+                                        <tr key={image}>
                                             <td onClick={() => showImagePreview(image)}>{image}</td>
-                                            <td><Image src="../images/delete-logo.png"/></td>
+                                            <td><Image onClick={() => removeImage(image)} className="small-logo" src={DeleteImage}/></td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -99,7 +118,7 @@ export const AddCarImageForm = () => {
                             <Image src="" alt="Image Preview" id="imagePreview" className="d-none" fluid />
                         </Col>
                     </Row>
-                    <Button type="button" onClick={handleOnSubmit} className="mt-auto btn btn-dark non-border-button">Next Step(3/4)</Button>
+                    <Button type="button" onClick={handleOnSubmit} className="mt-auto btn btn-dark non-border-button">Complete(3/3)</Button>
                 </Col>               
                 <Col md={2}></Col>
             </Row>

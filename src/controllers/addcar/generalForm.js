@@ -28,7 +28,7 @@ export const AddCarGeneralForm = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        dispatch({ type : 'addcar', car});
+        dispatch({ type : 'manageCar', car});
         navigate("/manage-car/attribute");
       }
 
@@ -61,14 +61,14 @@ export const AddCarGeneralForm = () => {
                             <Form.Control type="text" placeholder="Model" name="model" value={car.model} onChange={handleFieldChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicMake">
-                            <Form.Label>Model</Form.Label>
+                            <Form.Label>Make</Form.Label>
                             <Form.Control type="text" placeholder="Make" name="make" value={car.make} onChange={handleFieldChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicStockQuantity">
                             <Form.Label>Stock Quantity</Form.Label>
                             <Form.Control type="number" placeholder="Stock Quantity" name="stockQuantity" value={car.stockQuantity} onChange={handleFieldChange} />
                         </Form.Group>
-                        <Button type="submit" className="mt-auto btn btn-dark non-border-button">Next Step(1/4)</Button>
+                        <Button type="submit" className="mt-auto btn btn-dark non-border-button">Next Step(1/3)</Button>
                     </Form>
 
                 </Col>
