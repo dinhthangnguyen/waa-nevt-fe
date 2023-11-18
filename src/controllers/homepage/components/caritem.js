@@ -1,8 +1,14 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useNavigate } from "react-router-dom";
 
 export const ViewCarItem = ({ car }) => {
+    const navigate = useNavigate();
+    const open = (e) => {
+        e.preventDefault();
+        navigate("/cars/"+ e.target.value);
+    }
     return (
         <Card className="car-card d-flex flex-column">
             <Card.Img className ="car-card-image flex-grow-1" variant="top" src={car.images[0]} />
@@ -16,7 +22,7 @@ export const ViewCarItem = ({ car }) => {
                 <h5 className="card-text text-success">
                     {"$"}{car.basePrice}
                 </h5>
-                <a href='#' className="mt-auto btn btn-dark non-border-button">Buy Now!</a>
+                <Button onClick={open} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Buy Now!</Button>
             </Card.Body>
         </Card>
     )
