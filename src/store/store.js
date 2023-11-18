@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 
 const user = localStorage.getItem("myuser") === null ? null : JSON.parse(localStorage.getItem("myuser"));
 const token = localStorage.getItem("token") === null ? "" : localStorage.getItem("token");
-const initialData = { token: token, user: user, carts: [] };
+const initialData = { token: token, user: user, carts: [], car: {} };
 
 const reducer = (state = initialData, action) => {
     if (action.type === "login") {
@@ -32,6 +32,12 @@ const reducer = (state = initialData, action) => {
         localStorage.setItem("token", null);
         localStorage.setItem("myuser", null);
         return { ...state, user: null, token: "" }
+    }
+    if (action.type === "manageCar") {
+        return {...state, car: action.car}
+    }
+    if (action.type === "clearCar") {
+        return {...state, car: {}}
     }
 
     return state;
