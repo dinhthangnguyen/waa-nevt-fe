@@ -24,7 +24,7 @@ export function CustomNavBar() {
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container fluid>
-        <Navbar.Brand >
+        <Navbar.Brand className="fw-bold">
 
           <Nav.Link onClick={() => {
             openPage("/")
@@ -44,9 +44,13 @@ export function CustomNavBar() {
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={() => {openPage("/signup")}}>Sign Up</NavDropdown.Item>
             </NavDropdown>}
-
+            {user && 
+             <Nav.Link onClick={() => {openPage("/cart")}} className="bi bi-cart fw-bold">
+              CART
+            </Nav.Link>
+            }
             {user &&
-              <NavDropdown title={(user.firstName + " " + user.lastName).toUpperCase()} id="basic-nav-dropdown">
+              <NavDropdown className="fw-bold" title={(user.firstName + " " + user.lastName).toUpperCase()} id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={() => {openPage("/orders")}}>Orders</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logout}>Log out</NavDropdown.Item>
