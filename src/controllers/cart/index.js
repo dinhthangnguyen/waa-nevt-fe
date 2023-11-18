@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import useAPI from "../../api";
 import { useNavigate } from "react-router-dom";
 
-const CartCell2 = ({ item, deleteF }) => {
+const CartCell2 = ({ item, deleteF, onNumberChange }) => {
     let options = [];
     item.car.attributeTypes.forEach(type => {
         type.items.filter(o => o.selected === true).forEach(i => {
@@ -17,13 +17,12 @@ const CartCell2 = ({ item, deleteF }) => {
     const numberChange = (e) => {
         e.preventDefault();
         const value = parseInt(e.target.value);
+        const unitPrice = item.totalPrice /item.number;
+
         if (value) {
-            // setSelect(true);
-            // setNumber(value);
-            // calculateTotalPrice(car,value);
-        } else {
-            // setSelect(false);
-        }
+            let temp = {...item, number: value, totalPrice: unitPrice * value}
+            onNumberChange(item, temp);
+        } 
     }
 
     const handleDelete = (e) => {
@@ -69,7 +68,6 @@ const CartCell2 = ({ item, deleteF }) => {
                 <Col lg={3}>
                     <div className="mb-6 mb-lg-0 text-center cart-select"  >
                         <Form.Select onChange={numberChange} value={item.number} aria-label="Default select example">
-                            <option>Select number</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -105,6 +103,11 @@ export const Cart = () => {
             navigate("/orders");
         }
     }
+
+    const onNumberChange = (oldItem, newItem) => {
+        dispatch({type: "updateCart", item: oldItem, newItem: newItem});
+    }
+
     useEffect(() => {
         let temp = carts.map(e => e.totalPrice).reduce((a, b) => a + b, 0);
         setTotal(temp);
@@ -125,7 +128,7 @@ export const Cart = () => {
             <Row>
                 {carts.map(e => (
                     <Col lg={12} key={e.car.productNumber}>
-                        <CartCell2 item={e} deleteF={deleteF} />
+                        <CartCell2 item={e} deleteF={deleteF} onNumberChange={onNumberChange}/>
                     </Col>
                 ))}
             </Row>

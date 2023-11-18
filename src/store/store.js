@@ -21,6 +21,12 @@ const reducer = (state = initialData, action) => {
         let temp = state.carts.filter(e => e !== action.item);
         return { ...state, carts: temp };
     }
+    if (action.type == "updateCart") {
+        let index = state.carts.findIndex(e => e === action.item);
+        let temp = [...state.carts];
+        temp[index] = action.newItem;
+        return { ...state, carts: temp };
+    }
 
     if (action.type ===  "logout") {
         localStorage.setItem("token", null);
