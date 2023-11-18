@@ -14,7 +14,11 @@ const reducer = (state = initialData, action) => {
     if (action.type == "cart") {
         let temp = [...state.carts];
         temp.push(action.item);
-        console.log(temp);
+        return { ...state, carts: temp };
+    }
+
+    if (action.type == "deleteCartItem") {
+        let temp = state.carts.filter(e => e !== action.item);
         return { ...state, carts: temp };
     }
 

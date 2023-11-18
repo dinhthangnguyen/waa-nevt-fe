@@ -1,10 +1,12 @@
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Card from 'react-bootstrap/Card';
 import "./index.css";
+import { useEffect, useState } from "react";
+import useAPI from "../../api";
+import { useNavigate } from "react-router-dom";
 
-const CartCell2 = ({ item }) => {
-    console.log(item);
+const CartCell2 = ({ item, deleteF }) => {
     let options = [];
     item.car.attributeTypes.forEach(type => {
         type.items.filter(o => o.selected === true).forEach(i => {
@@ -22,6 +24,11 @@ const CartCell2 = ({ item }) => {
         } else {
             // setSelect(false);
         }
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        deleteF(item);
     }
 
     return (
@@ -46,21 +53,21 @@ const CartCell2 = ({ item }) => {
                     </div>
 
                     <div className="text-center d-flex">
-                            {options.map(e => {
-                                return <div className="cart-cell" key={e.value} >
-                                    <p className=" text-uppercase">
-                                        {e.value}
-                                    </p>
-                                    <p className={e.selected ? "" : " text-success"}>${e.additionalPrice}</p>
-                                </div>
-                            })}
+                        {options.map(e => {
+                            return <div className="cart-cell" key={e.value} >
+                                <p className=" text-uppercase">
+                                    {e.value}
+                                </p>
+                                <p className={e.selected ? "" : " text-success"}>${e.additionalPrice}</p>
+                            </div>
+                        })}
                     </div>
 
-                  
+
 
                 </Col>
                 <Col lg={3}>
-                <div className="mb-6 mb-lg-0 text-center cart-select"  >
+                    <div className="mb-6 mb-lg-0 text-center cart-select"  >
                         <Form.Select onChange={numberChange} value={item.number} aria-label="Default select example">
                             <option>Select number</option>
                             <option value="1">1</option>
@@ -70,7 +77,7 @@ const CartCell2 = ({ item }) => {
                         </Form.Select>
                     </div>
                     <div className="button-box">
-                        <Button value={item.car.productNumber} rounded variant="danger" >Delete</Button>
+                        <Button value={item.car.productNumber} rounded variant="danger" onClick={handleDelete} >Delete</Button>
 
                     </div>
                 </Col>
@@ -83,16 +90,59 @@ const CartCell2 = ({ item }) => {
 
 
 export const Cart = () => {
-    const carts = useSelector(state => state.carts)
+    const carts = useSelector(state => state.carts);
+    const dispatch = useDispatch();
+
+    const [total, setTotal] = useState(0);
+    const { PostClient } = useAPI();
+    const navigate = useNavigate();
+
+    const checkout = async (e) => {
+        e.preventDefault();
+        const response = await PostClient("/api/orders",carts);
+        if (response.status === 200) {
+            console.log("status 200");
+            navigate("/orders");
+        }
+    }
+    useEffect(() => {
+        let temp = carts.map(e => e.totalPrice).reduce((a, b) => a + b, 0);
+        setTotal(temp);
+    }, [carts])
+
+    const deleteF = (item) => {
+        console.log(item);
+        dispatch({type: "deleteCartItem", item: item})
+    }
+
     return (
         <Container>
+            <Row className=" text-center">
+                <div>
+                    <h1 id="carName">SHOPPING CART</h1>
+                </div>
+            </Row>
             <Row>
                 {carts.map(e => (
                     <Col lg={12} key={e.car.productNumber}>
-                        <CartCell2 item={e} />
+                        <CartCell2 item={e} deleteF={deleteF} />
                     </Col>
                 ))}
             </Row>
+
+            <Row>
+                <Col xs={12} className="mb-6 mb-lg-0 text-center total" >
+                    <h4 id="total" className="card-title">Total Price: <span className="text-success">${total}</span> </h4>
+                </Col>
+
+                <Col lg={3} />
+                <Col lg={6} className=" gap-2 text-center addcart">
+                    <Button className="btn btn-dark" onClick={checkout} size="lg" variant="dark">Checkout</Button>
+                </Col>
+                <Col lg={3} />
+
+            </Row>
+
 
         </Container>
 
