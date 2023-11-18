@@ -17,20 +17,21 @@ export const CarDetail = () => {
     const [select, setSelect] = useState(false);
 
     useEffect(() => {
+        const loadCar = async (sku) => {
+            const response = await GetClient("/api/cars/" + sku);
+            if (response.status === 200) {
+                setCar(response.data);
+                setTotalPrice(response.data.basePrice);
+            }
+        }
+
         async function fetching() {
             await loadCar(params.sku);
         }
         fetching();
-    }, [])
+    }, [params, GetClient])
 
-    const loadCar = async (sku) => {
-        const response = await GetClient("/api/cars/" + sku);
-        if (response.status === 200) {
-            setCar(response.data);
-            setTotalPrice(response.data.basePrice);
-        }
-    }
-
+   
     const selectAtrribute = (data) => {
         console.log(data.type);
         let temp = { ...car };
