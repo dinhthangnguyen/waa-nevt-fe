@@ -18,7 +18,7 @@ const OrderItem = ({ order }) => {
                 </Col>
                 {order.items.map(e => (
                     <Col lg={12} key={e.car.productNumber}>
-                        <CartCell item={e} deleteF={null} onNumberChange={null} />
+                        <CartCell item={e} deleteF={null} onNumberChange={null} onReview={true}/>
                     </Col>
                 ))}
             </Row>

@@ -1,8 +1,11 @@
 import { Container, Row, Col, Card, Form, Image, Button } from "react-bootstrap";
 import "./index.css";
 import { host } from "../../api";
+import { useNavigate } from "react-router-dom";
 
-export const CartCell = ({ item, deleteF, onNumberChange }) => {
+export const CartCell = ({ item, deleteF, onNumberChange, onReview = null }) => {
+    const navigate = useNavigate();
+
     let options = [];
     item.car.attributeTypes.forEach(type => {
         type.items.filter(o => o.selected === true).forEach(i => {
@@ -26,11 +29,16 @@ export const CartCell = ({ item, deleteF, onNumberChange }) => {
         deleteF(item);
     }
 
+    const handleReview = (e) => {
+        e.preventDefault();
+        navigate("/cars/"+ e.target.value);
+    }
+
     return (
         <Container className="cartitem">
             <Row >
                 <Col lg={3}>
-                    <Image rounded className="w-100" src={host +"/api/images/" + item.car.images[0]} />
+                    <Image rounded className="w-100" src={host + "/api/images/" + item.car.images[0]} />
                 </Col>
                 <Col lg={6}>
                     <div>
@@ -73,6 +81,10 @@ export const CartCell = ({ item, deleteF, onNumberChange }) => {
                     <div className="button-box">
                         {deleteF &&
                             <Button value={item.car.productNumber} rounded variant="danger" onClick={handleDelete} >Delete</Button>
+                        }
+
+                        {onReview &&
+                            <Button value={item.car.productNumber} rounded variant="light" onClick={handleReview} >Review</Button>
                         }
                     </div>
                 </Col>
