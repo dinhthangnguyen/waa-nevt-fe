@@ -49,6 +49,11 @@ export function CustomNavBar() {
               CART
             </Nav.Link>
             }
+            {user && 
+             <Nav.Link onClick={() => {openPage("/manage-car")}} className="bi bi-cart fw-bold">
+              ADD CAR
+            </Nav.Link>
+            }
             {user &&
               <NavDropdown className="fw-bold" title={(user.firstName + " " + user.lastName).toUpperCase()} id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={() => {openPage("/orders")}}>Orders</NavDropdown.Item>
