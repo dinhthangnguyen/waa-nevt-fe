@@ -9,7 +9,6 @@ import "./index.css";
 export const Cart = () => {
     const carts = useSelector(state => state.carts);
     const user = useSelector(state => state.user);
-
     const dispatch = useDispatch();
 
     const [total, setTotal] = useState(0);
@@ -19,7 +18,7 @@ export const Cart = () => {
     const checkout = async (e) => {
         e.preventDefault();
         const order = {items: carts, email: user.email, orderStatus: "PLACED", total: total};
-        const response = await PostClient("/api/orders",order);
+        const response = await PostClient("/api/orders",order,user.token);
         if (response.status === 200) {
             console.log(response.data);
             navigate("/orders");
