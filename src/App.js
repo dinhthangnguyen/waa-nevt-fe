@@ -1,7 +1,7 @@
 import './App.css';
-import {CustomFooter, CustomNavBar} from './components';
+import { CustomFooter, CustomNavBar } from './components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { CarDetail, Login, Signup, HomePage, AddCarGeneralForm, AddCarAttributeForm, AddCarImageForm, Cart } from './controllers';
+import { CarDetail, Login, Signup, HomePage, CartPage, OrderPage, AddCarGeneralForm, AddCarAttributeForm, AddCarImageForm } from './controllers';
 
 function App() {
   return (
@@ -17,9 +17,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/orders" element={<Cart />} />
-
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders" element={<OrderPage />} />
         </Routes>
         <CustomFooter />
       </BrowserRouter>

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { CartCell } from "../../components";
 import "./index.css";
 
-export const Cart = () => {
+export const CartPage = () => {
     const carts = useSelector(state => state.carts);
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
