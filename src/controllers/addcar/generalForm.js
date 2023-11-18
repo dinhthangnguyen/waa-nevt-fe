@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./index.css"
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 export const AddCarGeneralForm = () => {
 
@@ -13,13 +13,13 @@ export const AddCarGeneralForm = () => {
 
     const [car, setCar] = useState(
         {
-            name: "", 
-            basePrice: "", 
-            description: "", 
-            year: 0, 
-            model: "", 
-            make: "", 
-            stockQuantity:0
+            name: "",
+            basePrice: "",
+            description: "",
+            year: 0,
+            model: "",
+            make: "",
+            stockQuantity: 0
         });
 
     const handleFieldChange = (e) => {
@@ -28,9 +28,9 @@ export const AddCarGeneralForm = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        dispatch({ type : 'manageCar', car});
+        dispatch({ type: 'manageCar', car });
         navigate("/manage-car/attribute");
-      }
+    }
 
     return (
 

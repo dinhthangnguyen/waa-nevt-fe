@@ -11,40 +11,32 @@ export const AddCarAttributeForm = () => {
   const navigate = useNavigate();
 
   const inittialCar = useSelector(state => state.car);
-  const [car, setCar] = useState({...inittialCar, attributeTypes: [{ type: '', items: [{ value: '', additionalPrice: 0 }] }]});
+  const [car, setCar] = useState({ ...inittialCar, attributeTypes: [{ type: '', items: [{ value: '', additionalPrice: 0 }] }] });
 
   const handleInputChange = (typeIndex, valueIndex, event) => {
     const { name, value } = event.target;
     const updatedAttributeTypes = [...car.attributeTypes];
-    if(name === "attributeType")
+    if (name === "attributeType")
       updatedAttributeTypes[typeIndex].type = value;
     else
       updatedAttributeTypes[typeIndex].items[valueIndex][name] = value;
 
-    setCar({...car, attributeTypes: updatedAttributeTypes});
+    setCar({ ...car, attributeTypes: updatedAttributeTypes });
   };
 
   const addAttributeType = () => {
     const updatedAttributeTypes = [...car.attributeTypes, { type: '', items: [{ value: '', additionalPrice: 0 }] }];
-    setCar({...car, attributeTypes: updatedAttributeTypes});
+    setCar({ ...car, attributeTypes: updatedAttributeTypes });
   };
 
   const addAttributeValue = (typeIndex) => {
     const updatedAttributeTypes = [...car.attributeTypes];
     updatedAttributeTypes[typeIndex].items.push({ value: '', additionalPrice: 0 });
-    setCar({...car, attributeTypes: updatedAttributeTypes});
+    setCar({ ...car, attributeTypes: updatedAttributeTypes });
   };
 
   const handleOnSubmit = () => {
-    console.log(car.attributeTypes);
- 
-    // setCar((prevCar) => {
-    //   let carWithAttribute = {...prevCar, attributeTypes: attributeTypes};
-    //   return carWithAttribute;
-    // })
-
-    console.log(car);
-    dispatch({ type : 'manageCar', car});
+    dispatch({ type: 'manageCar', car });
     navigate("/manage-car/images");
   }
 
