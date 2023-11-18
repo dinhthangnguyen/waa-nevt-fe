@@ -10,28 +10,28 @@ const reducer = (state = initialData, action) => {
         localStorage.setItem("myuser", JSON.stringify(action.user));
         return { ...state, user: action.user, token: action.user.token };
     }
-    
-    if (action.type == "cart") {
+
+    if (action.type === "cart") {
         let temp = [...state.carts];
         temp.push(action.item);
         return { ...state, carts: temp };
     }
 
-    if (action.type == "deleteCartItem") {
+    if (action.type === "deleteCartItem") {
         let temp = state.carts.filter(e => e !== action.item);
         return { ...state, carts: temp };
     }
-    if (action.type == "updateCart") {
+    if (action.type === "updateCart") {
         let index = state.carts.findIndex(e => e === action.item);
         let temp = [...state.carts];
         temp[index] = action.newItem;
         return { ...state, carts: temp };
     }
 
-    if (action.type ===  "logout") {
+    if (action.type === "logout") {
         localStorage.setItem("token", null);
         localStorage.setItem("myuser", null);
-        return {...state, user: null, token: ""}
+        return { ...state, user: null, token: "" }
     }
     if (action.type === "manageCar") {
         return {...state, car: action.car}

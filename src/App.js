@@ -1,5 +1,4 @@
 import './App.css';
-import { Button } from 'react-bootstrap';
 import {CustomFooter, CustomNavBar} from './components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { CarDetail, Login, Signup, HomePage, AddCarGeneralForm, AddCarAttributeForm, AddCarImageForm, Cart } from './controllers';
