@@ -18,8 +18,9 @@ export const CheckoutCard = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const order = { ...order, card: card };
-        const response = await PostClient("/api/orders", order, user.token);
+        const temp = { ...order, card: card };
+        console.log(temp);
+        const response = await PostClient("/api/orders", temp, user.token);
         if (response.status === 200) {
             dispatch({ type: "clearOrder" });
             console.log(response.data);
