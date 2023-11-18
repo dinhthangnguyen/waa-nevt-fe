@@ -3,7 +3,7 @@ const host = "http://localhost:8080";
 const client = axios.create({ baseURL: host });
 
 const useAPI = () => {
-    const GetClient = (path, headers = { "Content-Type": "Application/json" }, token) => {
+    const GetClient = (path, token, headers = { "Content-Type": "Application/json" }) => {
         let config = {
             headers: {
                 ...headers,
@@ -20,7 +20,7 @@ const useAPI = () => {
         return client.get(path, config);
     }
 
-    const PostClient = (path, data, headers = { "Content-Type": "Application/json" }, token) => {
+    const PostClient = (path, data, token, headers = { "Content-Type": "Application/json" }) => {
         let config = {
             headers: {
                 ...headers,
@@ -37,7 +37,7 @@ const useAPI = () => {
         return client.post(host + path, data, config);
     }
 
-    const PutClient = (path, data, headers = { "Content-Type": "Application/json" },token) => {
+    const PutClient = (path, data, token, headers = { "Content-Type": "Application/json" }) => {
         const config = {
             headers: {
                 ...headers,
@@ -47,7 +47,7 @@ const useAPI = () => {
         return client.put(path, data, config);
     }
 
-    const DeleteClient = (path, data, headers = { "Content-Type": "Application/json" }, token) => {
+    const DeleteClient = (path, data, token, headers = { "Content-Type": "Application/json" }) => {
         let config = {
             headers: {
                 ...headers,
