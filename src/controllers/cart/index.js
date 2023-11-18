@@ -1,7 +1,6 @@
 import { Button, Col, Container, Row } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react";
-import useAPI from "../../api";
 import { useNavigate } from "react-router-dom";
 import { CartCell } from "../../components";
 import "./index.css";
@@ -12,17 +11,13 @@ export const CartPage = () => {
     const dispatch = useDispatch();
 
     const [total, setTotal] = useState(0);
-    const { PostClient } = useAPI();
     const navigate = useNavigate();
 
-    const checkout = async (e) => {
+    const checkout = (e) => {
         e.preventDefault();
-        const order = {items: carts, email: user.email, orderStatus: "PLACED", total: total};
-        const response = await PostClient("/api/orders",order,user.token);
-        if (response.status === 200) {
-            console.log(response.data);
-            navigate("/orders");
-        }
+        const order = {items: carts, email: user.email, orderStatus: "PLACED", total: total, address: ""};
+        dispatch({type: "createOrder", order: order});
+        navigate("/checkout/info");
     }
 
     const onNumberChange = (oldItem, newItem) => {
