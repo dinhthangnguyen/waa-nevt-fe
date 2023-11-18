@@ -30,7 +30,7 @@ export const CartCell = ({ item, deleteF, onNumberChange }) => {
         <Container className="cartitem">
             <Row >
                 <Col lg={3}>
-                    <Image rounded className="w-100" src={host +"/images/" + item.car.images[0]} />
+                    <Image rounded className="w-100" src={host +"/api/images/" + item.car.images[0]} />
                 </Col>
                 <Col lg={6}>
                     <div>

@@ -12,7 +12,7 @@ export const ViewCarItem = ({ car }) => {
     }
     return (
         <Card className="car-card d-flex flex-column">
-            <Card.Img className ="car-card-image flex-grow-1" variant="top" src={host + "/images/" + car.images[0]} />
+            <Card.Img className ="car-card-image flex-grow-1" variant="top" src={host + "/api/images/" + car.images[0]} />
             <Card.Body className="d-flex flex-column">
                 <h5 className="card-text">
                     {car.name}
