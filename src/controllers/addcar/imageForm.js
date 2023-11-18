@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import Form from 'react-bootstrap/Form';
 import useAPI from "../../api";
-import DeleteImage from "../../api/images/delete-logo.png"
+import DeleteImage from "../../images/delete-logo.png"
 import "./index.css"
 
 export const AddCarImageForm = () => {
@@ -44,7 +44,7 @@ export const AddCarImageForm = () => {
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        const response = await PostClient("/api/api/images/upload", formData);
+        const response = await PostClient("/api/images/upload", formData);
 
         if (response.status === 200) {
             setCar((prevCar) => {
