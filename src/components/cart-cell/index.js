@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const CartCell = ({ item, deleteF, onNumberChange, onReview = null }) => {
     const navigate = useNavigate();
-
+    console.log(item);
     let options = [];
     item.car.attributeTypes.forEach(type => {
         type.items.filter(o => o.selected === true).forEach(i => {

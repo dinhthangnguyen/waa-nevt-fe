@@ -14,7 +14,7 @@ export const AddCarImageForm = () => {
     const navigate = useNavigate();
     const { PostClient } = useAPI();
 
-    const token = useSelector(state => state.token);
+    const user = useSelector(state => state.user);
 
     const inittialCar = useSelector(state => state.car);
     const [car, setCar] = useState({ ...inittialCar, images: [] });
@@ -27,7 +27,7 @@ export const AddCarImageForm = () => {
     }
 
     const createCar = async (car) => {
-        const response = await PostClient("/api/cars", car, token);
+        const response = await PostClient("/api/cars", car, user.token);
         if (response.status === 200) {
             let productNumber = response.data.productNumber;
             dispatch({ type: 'clearCar', car });
