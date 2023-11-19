@@ -25,15 +25,12 @@ export const CarDetail = () => {
             }
         }
 
-        async function fetching() {
-            await loadCar(params.sku);
-        }
-        fetching();
-    }, [params, GetClient])
+     loadCar(params.sku);
+
+    }, [params])
 
    
     const selectAtrribute = (data) => {
-        console.log(data.type);
         let temp = { ...car };
         let index = temp.attributeTypes.findIndex(e => e.type === data.type);
         let typeItem = temp.attributeTypes[index];
