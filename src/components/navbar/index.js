@@ -54,10 +54,15 @@ export function CustomNavBar() {
 
               </Nav.Link>
             }
-            {user &&
-              <Nav.Link onClick={() => { openPage("/manage-car") }} className="bi bi-cart fw-bold">
-                ADD CAR
-              </Nav.Link>
+            {(user?.role === "ROLE_EMPLOYEE" || user?.role === "ROLE_ADMIN") && 
+             <Nav.Link onClick={() => {openPage("/manage-car")}} className="bi bi-cart fw-bold">
+              ADD CAR
+            </Nav.Link>
+            }
+            {(user?.role === "ROLE_EMPLOYEE" || user?.role === "ROLE_ADMIN") && 
+             <Nav.Link onClick={() => {openPage("/manage-order")}} className="bi bi-cart fw-bold">
+              MANAGE ORDER
+            </Nav.Link>
             }
             {user &&
               <NavDropdown className="fw-bold" title={(user.firstName + " " + user.lastName).toUpperCase()} id="basic-nav-dropdown">

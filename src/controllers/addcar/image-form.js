@@ -5,17 +5,16 @@ import { Col, Container, Row, Table } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import Form from 'react-bootstrap/Form';
-import useAPI from "../../api";
+import useAPI, {host} from "../../api";
 import DeleteImage from "../../images/delete-logo.png"
 import "./index.css"
 
 export const AddCarImageForm = () => {
-    const baseImageURL = "http://localhost:8080/api/images";
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { PostClient } = useAPI();
 
-    const token = useSelector(state => state.token);
+    const user = useSelector(state => state.user);
 
     const inittialCar = useSelector(state => state.car);
     const [car, setCar] = useState({ ...inittialCar, images: [] });
@@ -28,7 +27,7 @@ export const AddCarImageForm = () => {
     }
 
     const createCar = async (car) => {
-        const response = await PostClient("/api/cars", car, token);
+        const response = await PostClient("/api/cars", car, user.token);
         if (response.status === 200) {
             let productNumber = response.data.productNumber;
             dispatch({ type: 'clearCar', car });
@@ -61,7 +60,7 @@ export const AddCarImageForm = () => {
 
     const showImagePreview = (image) => {
         const imagePreviewElement = document.getElementById("imagePreview");
-        imagePreviewElement.setAttribute("src", baseImageURL + `/${image}`)
+        imagePreviewElement.setAttribute("src", host + "/api/images/" + {image})
         imagePreviewElement.removeAttribute("class")
         imagePreviewElement.style.maxWidth = '100%';
         imagePreviewElement.style.maxHeight = '500px';

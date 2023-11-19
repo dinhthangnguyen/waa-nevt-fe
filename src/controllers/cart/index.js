@@ -30,7 +30,6 @@ export const CartPage = () => {
     }, [carts])
 
     const deleteF = (item) => {
-        console.log(item);
         dispatch({type: "deleteCartItem", item: item})
     }
 
