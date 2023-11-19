@@ -49,9 +49,14 @@ export function CustomNavBar() {
               CART
             </Nav.Link>
             }
-            {user && 
+            {(user?.role === "ROLE_EMPLOYEE" || user?.role === "ROLE_EMROLE_ADMINPLOYEE") && 
              <Nav.Link onClick={() => {openPage("/manage-car")}} className="bi bi-cart fw-bold">
               ADD CAR
+            </Nav.Link>
+            }
+            {(user?.role === "ROLE_EMPLOYEE" || user?.role === "ROLE_EMROLE_ADMINPLOYEE") && 
+             <Nav.Link onClick={() => {openPage("/manage-order")}} className="bi bi-cart fw-bold">
+              MANAGE ORDER
             </Nav.Link>
             }
             {user &&

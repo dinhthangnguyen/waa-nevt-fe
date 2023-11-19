@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ViewCarItem } from "./caritem";
+import { ViewCarItem } from "./car-item";
 import useAPI from "../../../api";
 import { Col, Container, Row } from "react-bootstrap";
 
