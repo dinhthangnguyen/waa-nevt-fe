@@ -1,13 +1,15 @@
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Badge } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import "./index.css";
 
 export function CustomNavBar() {
   const user = useSelector(state => state.user);
+  const carts = useSelector(state => state.carts)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,14 +42,17 @@ export function CustomNavBar() {
             navbarScroll
           >
             {!user && <NavDropdown title="LOGIN" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={() => {openPage("/login")}}>Log In</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => { openPage("/login") }}>Log In</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => {openPage("/signup")}}>Sign Up</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => { openPage("/signup") }}>Sign Up</NavDropdown.Item>
             </NavDropdown>}
-            {user && 
-             <Nav.Link onClick={() => {openPage("/cart")}} className="bi bi-cart fw-bold">
-              CART
-            </Nav.Link>
+            {user &&
+              <Nav.Link onClick={() => { openPage("/cart") }} className="bi bi-cart fw-bold">
+                
+                CART <Badge className="cart-badge" pill bg="danger">{carts.length}</Badge>
+
+
+              </Nav.Link>
             }
             {(user?.role === "ROLE_EMPLOYEE" || user?.role === "ROLE_EMROLE_ADMINPLOYEE") && 
              <Nav.Link onClick={() => {openPage("/manage-car")}} className="bi bi-cart fw-bold">
@@ -61,7 +66,7 @@ export function CustomNavBar() {
             }
             {user &&
               <NavDropdown className="fw-bold" title={(user.firstName + " " + user.lastName).toUpperCase()} id="basic-nav-dropdown">
-                <NavDropdown.Item onClick={() => {openPage("/orders")}}>Orders</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => { openPage("/orders") }}>Orders</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logout}>Log out</NavDropdown.Item>
               </NavDropdown>}
