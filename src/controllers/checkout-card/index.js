@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -15,15 +15,19 @@ export const CheckoutCard = () => {
     const { PostClient } = useAPI();
     const [card, setCard] = useState(initialData);
 
+    useEffect(()=>{
+        if (order.card) {
+            setCard(order.card);
+        }
+    },[]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const temp = { ...order, card: card };
-        console.log(temp);
         const response = await PostClient("/api/orders", temp, user.token);
         if (response.status === 200) {
             dispatch({ type: "clearOrder" });
-            console.log(response.data);
             navigate("/orders");
         }
     }
