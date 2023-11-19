@@ -1,4 +1,4 @@
-export { ViewCarItem } from "./caritem";
+export { ViewCarItem } from "./car-item";
 
 export { Affordable } from './affordable'
 
