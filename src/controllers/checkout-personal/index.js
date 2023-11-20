@@ -49,7 +49,7 @@ export const CheckoutPersonalInfo = () => {
             validateE.isValid = false;
         }
 
-        let eRegex = new RegExp("^[a-zA-Z]+\@[a-zA-Z]+\.[a-zA-Z]{3,}$");
+        let eRegex = new RegExp("^[a-zA-Z]+\@[a-zA-Z]+\.[a-zA-Z]{2,}$");
         if (!eRegex.test(address.email.trim())) {
             emailE.wrongFormat = "Email format incorrect";
             validateE.isValid = false;
