@@ -2,7 +2,6 @@ import { Col, Container, Row } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react";
 import useAPI from "../../api";
-import { useNavigate } from "react-router-dom";
 import { OrderCell } from "../../components";
 import "./index.css";
 
