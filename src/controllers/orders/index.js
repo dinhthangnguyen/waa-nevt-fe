@@ -22,15 +22,8 @@ export const OrderPage = () => {
             }
         }
 
-        async function fetching() {
-            await loadOrders();
-        }
-        fetching();
-    }, [user])
-
-    const toReview = (e) => {
-        navigate("/cars/" + e.target.value);
-    }
+       loadOrders();
+    }, [user]);
 
     return (
         <Container>

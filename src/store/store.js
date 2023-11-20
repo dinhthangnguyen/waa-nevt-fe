@@ -30,6 +30,11 @@ const reducer = (state = initialData, action) => {
         return { ...state, order: temp };
     }
 
+    if (action.type === "addCard") {
+        const temp = { ...state.order, card: action.card };
+        return { ...state, order: temp };
+    }
+
     if (action.type === "deleteCartItem") {
         let temp = state.carts.filter(e => e !== action.item);
         return { ...state, carts: temp };

@@ -24,12 +24,8 @@ export const CheckoutCard = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const temp = { ...order, card: card };
-        const response = await PostClient("/api/orders", temp, user.token);
-        if (response.status === 200) {
-            dispatch({ type: "clearOrder" });
-            navigate("/orders");
-        }
+        dispatch({type: "addCard", card});
+        navigate("/checkout/confirmation");
     }
 
     const handleFieldChanges = (e) => {
@@ -98,7 +94,7 @@ export const CheckoutCard = () => {
 
                     </Col>
                 </Row>
-                <Button className="btn btn-dark" size="lg" type="submit" variant="dark">Checkout</Button>
+                <Button className="btn btn-dark" size="lg" type="submit" variant="dark">Next</Button>
             </Form>
 
 

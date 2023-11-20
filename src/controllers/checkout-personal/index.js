@@ -21,7 +21,6 @@ export const CheckoutPersonalInfo = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch({type: "addAddress", address: address});
-        console.log(address);
         navigate("/checkout/card");
     }
 
