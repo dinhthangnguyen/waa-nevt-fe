@@ -36,7 +36,7 @@ export const CheckoutPersonalInfo = () => {
     }
 
     const formValidation = () => {
-        let validateE = {};
+        let validateE = {isValid: true};
         let nameE = {};
         let emailE = {};
         let phoneE = {};
@@ -49,14 +49,14 @@ export const CheckoutPersonalInfo = () => {
             validateE.isValid = false;
         }
 
-        let eRegex = new RegExp("[a-zA-Z]+\@[a-zA-Z]+\.[a-zA-Z]{3,}");
+        let eRegex = new RegExp("^[a-zA-Z]+\@[a-zA-Z]+\.[a-zA-Z]{3,}$");
         if (!eRegex.test(address.email.trim())) {
             emailE.wrongFormat = "Email format incorrect";
             validateE.isValid = false;
         }
 
 
-        let phoneRegex = new RegExp("[0-9+.]{5,}");
+        let phoneRegex = new RegExp("^[0-9+.]{5,}$");
         if (!phoneRegex.test(address.phone.trim())) {
             phoneE.phoneFormat = "phone format incorrect";
             validateE.isValid = false;
@@ -72,7 +72,7 @@ export const CheckoutPersonalInfo = () => {
             validateE.isValid = false;
         }
 
-        let zipRegex = new RegExp("[0-9]{5}");
+        let zipRegex = new RegExp("^[0-9]{5}$");
         if (!zipRegex.test(address.zip.trim())) {
             zipE.phoneFormat = "zip format incorrect";
             validateE.isValid = false;
