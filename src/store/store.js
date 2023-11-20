@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit"
 
 const user = localStorage.getItem("myuser") === null ? null : JSON.parse(localStorage.getItem("myuser"));
 const token = localStorage.getItem("token") === null ? "" : localStorage.getItem("token");
-const initialData = { token: token, user: user, carts: [], car: {}, order: {} };
+const intitalCarts = localStorage.getItem("cart") === null ? [] : JSON.parse(localStorage.getItem("cart"))
+const initialData = { token: token, user: user, carts: intitalCarts, car: {}, order: {} };
 
 const reducer = (state = initialData, action) => {
     if (action.type === "login") {
@@ -14,6 +15,7 @@ const reducer = (state = initialData, action) => {
     if (action.type === "cart") {
         let temp = [...state.carts];
         temp.push(action.item);
+        localStorage.setItem("cart",JSON.stringify(temp));
         return { ...state, carts: temp };
     }
 
@@ -25,33 +27,26 @@ const reducer = (state = initialData, action) => {
         return { ...state,carts: [], order: {} };
     }
 
-    if (action.type === "addAddress") {
-        let temp = {...state.order, address: action.address};
-        return { ...state, order: temp };
-    }
-
-    if (action.type === "addCard") {
-        const temp = { ...state.order, card: action.card };
-        return { ...state, order: temp };
-    }
-
     if (action.type === "deleteCartItem") {
         let temp = state.carts.filter(e => e !== action.item);
         if (temp.length === 0) {
             return { ...state, carts: [], order: {} };
         }
+        localStorage.setItem("cart",JSON.stringify(temp));
         return { ...state, carts: temp };
     }
     if (action.type === "updateCart") {
         let index = state.carts.findIndex(e => e === action.item);
         let temp = [...state.carts];
         temp[index] = action.newItem;
+        localStorage.setItem("cart",JSON.stringify(temp));
         return { ...state, carts: temp };
     }
 
     if (action.type === "logout") {
         localStorage.setItem("token", null);
         localStorage.setItem("myuser", null);
+        localStorage.setItem("cart",null);
         return { ...state, user: null, token: "" }
     }
     if (action.type === "manageCar") {

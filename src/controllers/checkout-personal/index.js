@@ -14,6 +14,7 @@ export const CheckoutPersonalInfo = () => {
     const initialData = {name: user.firstName + " " + user.lastName, email: user.email, phone: "", street: "", city: "", zip: ""}
     const [address, setAddress] = useState(initialData);
 
+    
     useEffect(()=>{
         if (order.address.name) {
         setAddress(order.address);
@@ -22,7 +23,8 @@ export const CheckoutPersonalInfo = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch({type: "addAddress", address: address});
+        
+        dispatch({type: "createOrder", order: {...order,address: address}});
         navigate("/checkout/card");
     }
 

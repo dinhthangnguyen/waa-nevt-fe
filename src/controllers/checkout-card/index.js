@@ -24,7 +24,7 @@ export const CheckoutCard = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        dispatch({type: "addCard", card});
+        dispatch({type: "createOrder", order: {...order,card: card}});
         navigate("/checkout/confirmation");
     }
 
