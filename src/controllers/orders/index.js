@@ -34,7 +34,7 @@ export const OrderPage = () => {
             </Row>
             <Row>
                 {orders.map(e => (
-                    <Col lg={12} key={e.order}>
+                    <Col lg={12} key={e.orderId}>
                         <OrderCell order={e} />
                     </Col>
                 ))}

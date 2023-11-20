@@ -22,7 +22,7 @@ const reducer = (state = initialData, action) => {
     }
 
     if (action.type === "clearOrder") {
-        return { ...state, order: {} };
+        return { ...state,carts: [], order: {} };
     }
 
     if (action.type === "addAddress") {
