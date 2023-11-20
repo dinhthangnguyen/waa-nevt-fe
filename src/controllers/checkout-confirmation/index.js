@@ -2,7 +2,7 @@ import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import useAPI from "../../api";
 import { useNavigate } from "react-router-dom";
-import { CartCell, OrderCell } from "../../components";
+import { CartCell } from "../../components";
 import "./index.css";
 
 
@@ -31,10 +31,8 @@ export const CheckoutConfirmation = () => {
             </Row>
             <Row>
                 <Col lg={12} >
-
                     <Card >
                         <Card.Body>
-
                             <h3 className="text-center">
                                 Items
                             </h3>
@@ -48,7 +46,6 @@ export const CheckoutConfirmation = () => {
                                     </ListGroup.Item>
                                 </ListGroup>
                             ))}
-
                             <h3 className="text-center">
                                 Address
                             </h3>
@@ -84,11 +81,8 @@ export const CheckoutConfirmation = () => {
                                     Expired Date: {order.card.validDate}
                                 </ListGroup.Item>
                             </ListGroup>
-
                         </Card.Body>
-
                     </Card>
-
                 </Col>
             </Row>
 
@@ -99,7 +93,6 @@ export const CheckoutConfirmation = () => {
                         onClick={handleSubmit}
                         type="submit" variant="dark">Checkout</Button>
                 </Col>
-
             </Row>
         </Container>
     )

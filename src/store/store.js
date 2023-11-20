@@ -37,6 +37,9 @@ const reducer = (state = initialData, action) => {
 
     if (action.type === "deleteCartItem") {
         let temp = state.carts.filter(e => e !== action.item);
+        if (temp.length === 0) {
+            return { ...state, carts: [], order: {} };
+        }
         return { ...state, carts: temp };
     }
     if (action.type === "updateCart") {

@@ -15,7 +15,9 @@ export const CheckoutPersonalInfo = () => {
     const [address, setAddress] = useState(initialData);
 
     useEffect(()=>{
+        if (order.address.name) {
         setAddress(order.address);
+        }
     },[]);
 
     const handleSubmit = (e) => {
