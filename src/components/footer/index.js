@@ -1,6 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import "./index.css";
+import { Nav } from "react-bootstrap";
 
 export const CustomFooter = () => {
+    const navigate = useNavigate();
+
     return (
         <footer className="text-center text-lg-start bg-light text-muted footer">
             <section className="">
@@ -11,8 +15,7 @@ export const CustomFooter = () => {
                                 <i className="fas fa-gem me-3"></i>NEVT
                             </h6>
                             <p>
-                                We create a community to connect people who want to provide a car for rent and people who
-                                really need them for a couple of days or more.
+                                We are a fictional startup who excels in New Energy Vehicle. We have stock of the most advanced electrified vehicle models in the world at the lowest price possible
                             </p>
                         </div>
 
@@ -21,15 +24,12 @@ export const CustomFooter = () => {
                                 PLATFORM
                             </h6>
                             <p>
-                                <a href="/about" className="text-reset">About</a>
+                                <Nav.Link onClick={() => navigate("/about")} className="text-reset">About</Nav.Link>
                             </p>
                             <p>
-                                <a href="/rent" className="text-reset">Rent</a>
-                            </p>
-                            <p>
-                                <a href="/owners" className="text-reset">Share Your Car</a>
-                            </p>
+                                <Nav.Link onClick={() => navigate("/cars")} className="text-reset">Search Cars</Nav.Link>
 
+                            </p>
 
                         </div>
 
@@ -37,12 +37,11 @@ export const CustomFooter = () => {
                             <h6 className="text-uppercase fw-bold mb-4">
                                 Useful links
                             </h6>
-
                             <p>
-                                <a href="/billings/track-order" className="text-reset">Track Order</a>
+                                <Nav.Link onClick={() => navigate("/orders")} className="text-reset">Track Orders</Nav.Link>
                             </p>
                             <p>
-                                <a href="/billings/track-email" className="text-reset">Check History</a>
+                                <Nav.Link onClick={() => navigate("/cart")} className="text-reset">Check Cart</Nav.Link>
                             </p>
                         </div>
 
@@ -58,7 +57,7 @@ export const CustomFooter = () => {
                 </div>
             </section>
 
-            <div className="text-center p-4" style={{"background-color": 'rgba(0, 0, 0, 0.05)'}}>
+            <div className="text-center p-4" style={{ "backgroundColor": 'rgba(0, 0, 0, 0.05)' }}>
                 © 2023 Copyright:
                 <a className="text-reset fw-bold" href="/">WAA Project CAR ECOMMERCE PLATFORM</a>
             </div>

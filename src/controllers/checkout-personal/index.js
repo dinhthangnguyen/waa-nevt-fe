@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -7,15 +7,24 @@ import { useNavigate } from 'react-router-dom';
 
 export const CheckoutPersonalInfo = () => {
     const user = useSelector(state => state.user);
+    const order = useSelector(state=> state.order);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const initialData = {name: user.firstName + " " + user.lastName, email: user.email, phone: "", street: "", city: "", zip: ""}
     const [address, setAddress] = useState(initialData);
 
+    
+    useEffect(()=>{
+        if (order.address.name) {
+        setAddress(order.address);
+        }
+    },[]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch({type: "addAddress", address: address});
-        console.log(address);
+        
+        dispatch({type: "createOrder", order: {...order,address: address}});
         navigate("/checkout/card");
     }
 
@@ -78,7 +87,7 @@ export const CheckoutPersonalInfo = () => {
                     </Col>
                 </Row>
 
-                <Button className="btn btn-dark" size="lg" type="submit" variant="dark">Checkout</Button>
+                <Button className="btn btn-dark" size="lg" type="submit" variant="dark">Add Payment Card</Button>
             </Form>
 
 
