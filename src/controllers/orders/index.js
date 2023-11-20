@@ -11,7 +11,6 @@ export const OrderPage = () => {
     const user = useSelector(state => state.user);
     const [orders, setOrders] = useState([]);
     const { GetClient } = useAPI();
-    const navigate = useNavigate();
 
     useEffect(() => {
         const loadOrders = async () => {
@@ -32,10 +31,12 @@ export const OrderPage = () => {
                     <h1 id="carName">ORDERS</h1>
                 </div>
             </Row>
-            <Row>
+            <Row >
                 {orders.map(e => (
                     <Col lg={12} key={e.orderId}>
-                        <OrderCell order={e} />
+                       <div className="order-row">
+                       <OrderCell order={e} />
+                       </div>
                     </Col>
                 ))}
             </Row>
