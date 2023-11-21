@@ -49,10 +49,10 @@ public class CartTest {
 
 	@Test
 	public void testCartFlow()  {
-		String email = loginPage.insertEmail("admin@gmail.com");
-		assertThat(email,is("admin@gmail.com"));
-		String pass = loginPage.insertPassword("qwe123");
-		assertThat(pass,is("qwe123"));
+		String email = loginPage.insertEmail("dnguyen@miu.edu");
+		assertThat(email,is("dnguyen@miu.edu"));
+		String pass = loginPage.insertPassword("Qwe123");
+		assertThat(pass,is("Qwe123"));
 		loginPage.clickLoginAndWait();
 		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
 
@@ -87,6 +87,12 @@ public class CartTest {
 		// move to card pay
 		cardPage = addressPage.clickNext();
 		assertThat(cardPage.getTitle(),is("PLEASE PROVIDE YOUR CARD"));
+
+		cardPage.insertNumber("1234567890");
+		cardPage.insertCVV("333");
+		cardPage.insertDate("05/2025");
+		cardPage.selectVisa();
+		
 
 	}
 

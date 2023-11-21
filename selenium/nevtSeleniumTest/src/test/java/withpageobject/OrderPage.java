@@ -5,10 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CheckoutConfirmPage {
+public class OrderPage {
 	protected WebDriver driver;
 
-	public CheckoutConfirmPage(WebDriver driver) {
+	public OrderPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver,this);
 	}
@@ -21,6 +21,9 @@ public class CheckoutConfirmPage {
 	public void close() {
 		driver.close();
 	}
+
+	@FindBy(id = "addAddress")
+	private WebElement button;
 
 	@FindBy(id = "confirmTitle")
 	private WebElement confirmTitle;
@@ -97,8 +100,8 @@ public class CheckoutConfirmPage {
 		return checkoutValidDate.getText();
 	}
 
-	public OrderPage clickCheckout() {
+	public AddressPage clickAddress() {
 		checkoutButton.click();
-		return new OrderPage(driver);
+		return new AddressPage(driver);
 	}
 }
