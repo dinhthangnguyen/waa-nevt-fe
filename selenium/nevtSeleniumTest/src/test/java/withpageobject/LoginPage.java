@@ -1,19 +1,25 @@
 package withpageobject;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.NoSuchElementException;
+import java.time.Duration;
 
 public class LoginPage {
 	protected WebDriver driver;
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
+		PageFactory.initElements(driver,this);
 	}
 
 	@FindBy(name = "email")
@@ -46,13 +52,16 @@ public class LoginPage {
 		return passwordInput.getAttribute("value");
 	}
 
-	public HomePage clickLogin() throws InterruptedException {
+	public HomePage clickLoginAndWait() {
 		loginButton.click();
-		Wait<WebDriver> wait = new FluentWait<>(driver)
-				.withTimeout(Duration.ofSeconds(3))
-				.pollingEvery(Duration.ofSeconds(1))
-				.ignoring(NoSuchElementException.class);
-		wait(1000);
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+		try {
+			wait.until(ExpectedConditions.urlToBe("http://localhost:3000/"));
+			System.out.println("URL matched successfully: " + driver.getCurrentUrl());
+		} catch (TimeoutException e) {
+			System.err.println("Timeout waiting for URL to match. Current URL: " + driver.getCurrentUrl());
+			e.printStackTrace();
+		}
 		return new HomePage(driver);
 	}
 

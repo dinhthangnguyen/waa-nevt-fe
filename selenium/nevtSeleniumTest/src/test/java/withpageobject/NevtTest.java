@@ -25,7 +25,6 @@ public class NevtTest {
 	private static Page3 page3;
 	private static Page4 page4;
 
-
 	@Before
 	public void createWebDriver() {
 		// set path to chromedriver.exe
@@ -35,7 +34,7 @@ public class NevtTest {
 		options.addArguments("--remote-allow-origins=*");
 		// create chrome instance
 		WebDriver driver = new ChromeDriver(options);
-		loginPage = PageFactory.initElements(driver, LoginPage.class);
+		loginPage = new LoginPage(driver);
 		loginPage.open("http://localhost:3000/login");
 	}
 
@@ -46,19 +45,11 @@ public class NevtTest {
 
 	@Test
 	public void testLogin()  {
-		String email = loginPage.insertEmail("dnguyen@miu.edu");
-		assertThat(email,is("dnguyen@miu.edu"));
-		String pass = loginPage.insertPassword("123456");
-		assertThat(pass,is("123456"));
-
-		try {
-			homePage = loginPage.clickLogin();
-
-		} catch (Exception e) {
-
-		}
-
-
+		String email = loginPage.insertEmail("admin@gmail.com");
+		assertThat(email,is("admin@gmail.com"));
+		String pass = loginPage.insertPassword("qwe123");
+		assertThat(pass,is("qwe123"));
+		homePage = loginPage.clickLoginAndWait();
 		assertThat(homePage.getHeaderTitle(),containsString("TODAY'S PICK"));
 	}
 
