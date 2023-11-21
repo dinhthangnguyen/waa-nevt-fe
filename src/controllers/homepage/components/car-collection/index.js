@@ -21,7 +21,7 @@ export const CarCollection = ({title, apiPath}) => {
 
     return (
         <Container>
-            <Row><Col className="text-center"><h2>{title}</h2></Col></Row>
+            <Row><Col className="text-center"><h2 id="collection-title">{title}</h2></Col></Row>
             <Row>
                 {cars.map((car) => (
                     <Col key={car.productNumber} sm={4}>

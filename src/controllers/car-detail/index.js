@@ -115,7 +115,7 @@ export const CarDetail = () => {
 
                         <Col lg={5} />
                         <Col lg={2} className="mb-6 mb-lg-0 text-center select"  >
-                            <Form.Select onChange={numberChange} aria-label="Default select example">
+                            <Form.Select onChange={numberChange} aria-label="Default select example" id="carSelect">
                                 <option>Select number</option>
                                 <option value="1">1</option>
                                 {car.stockQuantity >= 2 &&
@@ -138,7 +138,7 @@ export const CarDetail = () => {
 
                         <Col lg={3} />
                         <Col lg={6} className=" gap-2 text-center addcart">
-                            <Button className="btn btn-dark" onClick={addToCart} disabled={!select} size="lg" variant="dark">Add To Cart</Button>
+                            <Button id="addCartButton" className="btn btn-dark" onClick={addToCart} disabled={!select} size="lg" variant="dark">Add To Cart</Button>
                         </Col>
                         <Col lg={3} />
                     </Row>

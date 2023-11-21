@@ -41,7 +41,7 @@ export const CartCell = ({ item, deleteF, onNumberChange, onReview = null }) => 
                 </Col>
                 <Col lg={6}>
                     <div>
-                        <Card.Title>{item.car.name.toUpperCase()}</Card.Title>
+                        <Card.Title name="cartTitle">{item.car.name.toUpperCase()}</Card.Title>
                         <Card.Text>
                             Total Price: <span className="text-success">${item.totalPrice}</span>
                         </Card.Text>
@@ -70,7 +70,7 @@ export const CartCell = ({ item, deleteF, onNumberChange, onReview = null }) => 
                 </Col>
                 <Col lg={3}>
                     <div className="mb-6 mb-lg-0 text-center cart-select"  >
-                        <Form.Select onChange={numberChange} disabled={!onNumberChange} value={item.number} aria-label="Default select example">
+                        <Form.Select id="cart-cell-select" onChange={numberChange} disabled={!onNumberChange} value={item.number} aria-label="Default select example">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
