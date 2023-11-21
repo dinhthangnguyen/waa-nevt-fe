@@ -32,7 +32,7 @@ export const OrderPage = () => {
             </Row>
             <Row >
                 {orders.map(e => (
-                    <Col lg={12} key={e.orderId}>
+                    <Col lg={12} className="order-cell" key={e.orderId}>
                        <div className="order-row">
                        <OrderCell order={e} />
                        </div>

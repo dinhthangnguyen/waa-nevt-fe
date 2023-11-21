@@ -29,8 +29,24 @@ export const CheckoutConfirmation = () => {
                     <h1 id="confirmTitle">CHECKOUT CONFIRMATION</h1>
                 </div>
             </Row>
-            {order.items &&
-                <Row>
+
+            <Row>
+                <Col xs={12} >
+                    <Button
+                        onClick={handleSubmit}
+                        id="cButtonFinal"
+                        size="lg"
+                        type="submit"
+                        variant="dark"
+                        className="btn btn-primary btn-lg btn-block">
+                        Checkout
+                    </Button>
+                </Col>
+            </Row>
+
+            <Row>
+
+                {order.items &&
                     <Col lg={12} >
                         <Card >
                             <Card.Body>
@@ -85,18 +101,10 @@ export const CheckoutConfirmation = () => {
                             </Card.Body>
                         </Card>
                     </Col>
-                </Row>
-            }
-
-            <Row>
-                <Col>
-                    <Button className="btn btn-dark"
-                        id="checkoutButton"
-                        size="lg"
-                        onClick={handleSubmit}
-                        type="submit" variant="dark">Checkout</Button>
-                </Col>
+                }
             </Row>
+
+
         </Container>
     )
 }

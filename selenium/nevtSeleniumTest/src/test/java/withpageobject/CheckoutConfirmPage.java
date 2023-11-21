@@ -1,8 +1,7 @@
 package withpageobject;
 
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -59,7 +58,7 @@ public class CheckoutConfirmPage {
 	@FindBy(id = "checkoutTotal")
 	private WebElement totalElement;
 
-	@FindBy(id = "checkoutButton")
+	@FindBy(id = "cButtonFinal")
 	private WebElement checkoutButton;
 
 
@@ -103,20 +102,25 @@ public class CheckoutConfirmPage {
 	}
 
 	public OrderPage clickCheckout() {
-		System.out.println("isDisplay: "+ checkoutButton.isDisplayed());
-		checkoutButton.click();
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
 		try {
-			wait
 			wait.until(ExpectedConditions.elementToBeClickable(checkoutButton));
-			wait.until(ExpectedConditions.urlToBe("http://localhost:3000/orders"));
 			System.out.println("URL matched successfully: " + driver.getCurrentUrl());
 		} catch (TimeoutException e) {
 			System.err.println("Timeout waiting for URL to match. Current URL: " + driver.getCurrentUrl());
 			e.printStackTrace();
 		}
 
+		checkoutButton.click();
+
+		try {
+			wait.until(ExpectedConditions.urlToBe("http://localhost:3000/orders"));
+			System.out.println("URL matched successfully: " + driver.getCurrentUrl());
+		} catch (TimeoutException e) {
+			System.err.println("Timeout waiting for URL to match. Current URL: " + driver.getCurrentUrl());
+			e.printStackTrace();
+		}
 		return new OrderPage(driver);
 	}
 }

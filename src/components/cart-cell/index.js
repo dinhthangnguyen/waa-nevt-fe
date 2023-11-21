@@ -41,7 +41,7 @@ export const CartCell = ({ item, deleteF, onNumberChange, onReview = null }) => 
                 </Col>
                 <Col lg={6}>
                     <div>
-                        <Card.Title>{item.car.name.toUpperCase()}</Card.Title>
+                        <Card.Title name="cartTitle">{item.car.name.toUpperCase()}</Card.Title>
                         <Card.Text>
                             Total Price: <span className="text-success">${item.totalPrice}</span>
                         </Card.Text>

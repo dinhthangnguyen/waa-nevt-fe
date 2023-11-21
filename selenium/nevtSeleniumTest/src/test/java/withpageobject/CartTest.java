@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
@@ -52,7 +53,7 @@ public class CartTest {
 	}
 
 	@Test
-	public void testCartFlow()  {
+	public void testWholeCreateOrderFlow()  {
 		String email = loginPage.insertEmail("dnguyen@miu.edu");
 		assertThat(email,is("dnguyen@miu.edu"));
 		String pass = loginPage.insertPassword("Qwe123");
@@ -98,8 +99,8 @@ public class CartTest {
 		cardPage.insertDate("05/2025");
 		cardPage.selectVisa();
 
+		// move to confirm page
 		confirmPage = cardPage.clickNext();
-
 		assertThat(confirmPage.getTitle(),is("CHECKOUT CONFIRMATION"));
 		assertThat(confirmPage.getTotalPrice(),containsString(price));
 		assertThat(confirmPage.getAddressTitle(),is("Address"));
@@ -107,14 +108,28 @@ public class CartTest {
 		assertThat(confirmPage.getEmail(),containsString("dnguyen@miu.edu"));
 		assertThat(confirmPage.getPhone(),containsString("6412339666"));
 		assertThat(confirmPage.getAddressFull(),containsString("1000 N 4th Street Fairfield 52557"));
-
 		assertThat(confirmPage.getCardNumber(),containsString("1234567890"));
 		assertThat(confirmPage.getCardType(),containsString("VISA"));
 		assertThat(confirmPage.getValidCode(),containsString("333"));
 		assertThat(confirmPage.getValidDate(),containsString("05/2025"));
-		orderPage = confirmPage.clickCheckout();
-//		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/orders"));
 
+		// move to order list
+		orderPage = confirmPage.clickCheckout();
+		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/orders"));
+		assertThat(orderPage.getTitle(),is("ORDERS"));
+
+		WebElement orderItem = orderPage.getOrderItem(price);
+		assertThat(orderItem.isDisplayed(),is(true));
+		assertThat(orderPage.getTotal(orderItem),containsString(price));
+		assertThat(orderPage.getAddress(orderItem),containsString("1000 N 4th Street Fairfield 52557"));
+		assertThat(orderPage.getName(orderItem),containsString("Dinh Thang Nguyen"));
+		assertThat(orderPage.getPhone(orderItem),containsString("6412339666"));
+		assertThat(orderPage.getEmail(orderItem),containsString("dnguyen@miu.edu"));
+		assertThat(orderPage.getCardType(orderItem),containsString("VISA"));
+		// there should be one car => TESLA MODEL 3
+		WebElement titleOfCarElement = orderPage.getCartItem("TESLA MODEL 3");
+		assertThat(titleOfCarElement.isDisplayed(),is(true));
+		assertThat(titleOfCarElement.getText(),containsString("TESLA MODEL 3"));
 	}
 
 
