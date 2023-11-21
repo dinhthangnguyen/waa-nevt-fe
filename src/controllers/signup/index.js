@@ -128,7 +128,7 @@ export const Signup = () => {
                             ))}
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button id="signupButton" variant="primary" type="submit">
                             Sign Up
                         </Button>
                     </Form>

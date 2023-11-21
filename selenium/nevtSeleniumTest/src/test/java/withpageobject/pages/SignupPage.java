@@ -18,6 +18,12 @@ public class SignupPage {
 		PageFactory.initElements(driver,this);
 	}
 
+	@FindBy(name = "firstName")
+	private WebElement firstNameInput;
+
+	@FindBy(name = "lastName")
+	private WebElement lastNameInput;
+
 	@FindBy(name = "email")
 	private WebElement emailInput;
 
@@ -25,8 +31,8 @@ public class SignupPage {
 	private WebElement passwordInput;
 
 
-	@FindBy(id = "login")
-	private WebElement loginButton;
+	@FindBy(id = "signupButton")
+	private WebElement signupButton;
 
 
 	public void open(String url) {
@@ -48,9 +54,21 @@ public class SignupPage {
 		return passwordInput.getAttribute("value");
 	}
 
+
+	public String insertFirstname(String string) {
+		firstNameInput.sendKeys(string);
+		return firstNameInput.getAttribute("value");
+	}
+
+	public String insertLastName(String string) {
+		lastNameInput.sendKeys(string);
+		return lastNameInput.getAttribute("value");
+	}
+
 	public HomePage clickLoginAndWait() {
-		loginButton.click();
+		signupButton.click();
 		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+		System.out.println(driver.getCurrentUrl());
 		try {
 			wait.until(ExpectedConditions.urlToBe("http://localhost:3000/"));
 			System.out.println("URL matched successfully: " + driver.getCurrentUrl());
