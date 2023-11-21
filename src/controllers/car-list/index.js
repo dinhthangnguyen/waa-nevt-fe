@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css"
 import { CarCell } from "../../components";
+import useAPI from "../../api";
+import { Container, Row, Col } from "react-bootstrap";
+import { useSearchParams } from "react-router-dom";
 export const CarList = () => {
-
+    const [searchParams, setSearchParams] = useSearchParams();
     const [cars, setCars] = useState([]);
-
+    console.log();
     const { GetClient } = useAPI();
 
     useEffect(() => {
         async function fetchData() {
-            const response = await GetClient("/api/cars");
+            const response = await GetClient("/api/cars?searchKey=" + searchParams.get("search"));
             if (response.status === 200) {
                 setCars(response.data);
             }
@@ -19,7 +22,7 @@ export const CarList = () => {
 
     return (
         <Container>
-            {/* <Row><Col className="text-center"><h2>TODAY'S PICK</h2></Col></Row> */}
+            <Row><Col className="text-center"><h2>All Cars</h2></Col></Row>
             <Row>
                 {cars.map((car) => (
                     <Col key={car.productNumber} sm={4}>
