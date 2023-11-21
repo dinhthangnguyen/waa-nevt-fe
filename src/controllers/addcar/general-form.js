@@ -1,26 +1,31 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./index.css"
-
+import useAPI from "../../api";
 export const AddCarGeneralForm = () => {
-
+    
+    const params = useParams();
+    const { GetClient } = useAPI();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [car, setCar] = useState(
-        {
-            name: "",
-            basePrice: "",
-            description: "",
-            year: 0,
-            model: "",
-            make: "",
-            stockQuantity: 0
-        });
+    const [car, setCar] = useState(useSelector(state => state.car));
+    useEffect(() => {
+        const loadCar = async (sku) => {
+            const response = await GetClient("/api/cars/" + sku);
+                if (response.status === 200) {
+                    setCar(response.data);
+                } 
+        }
+        if(params.sku) {
+            loadCar(params.sku);
+        }
+
+    }, [params])
 
     const handleFieldChange = (e) => {
         setCar({ ...car, [e.target.name]: e.target.value })
@@ -29,7 +34,10 @@ export const AddCarGeneralForm = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         dispatch({ type: 'manageCar', car });
-        navigate("/manage-car/attribute");
+        if(params.sku)
+            navigate(`/manage-car/car/attribute/${params.sku}`);
+        else
+            navigate("/manage-car/car/attribute");
     }
 
     return (

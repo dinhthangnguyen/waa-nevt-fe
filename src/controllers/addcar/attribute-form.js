@@ -3,25 +3,30 @@ import { Col, Container, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./index.css"
 
 export const AddCarAttributeForm = () => {
+  const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const inittialCar = useSelector(state => state.car);
-  const [car, setCar] = useState({ ...inittialCar, attributeTypes: [{ type: '', items: [{ value: '', additionalPrice: 0 }] }] });
-
+  const [car, setCar] = useState(inittialCar.attributeTypes ? {...inittialCar} : {...inittialCar, attributeTypes: [{ type: '', items: [{ value: '', additionalPrice: 0 }] }]});
   const handleInputChange = (typeIndex, valueIndex, event) => {
     const { name, value } = event.target;
-    const updatedAttributeTypes = [...car.attributeTypes];
-    if (name === "attributeType")
-      updatedAttributeTypes[typeIndex].type = value;
-    else
-      updatedAttributeTypes[typeIndex].items[valueIndex][name] = value;
-
-    setCar({ ...car, attributeTypes: updatedAttributeTypes });
+  
+    console.log("Before State Update:", car); // Log the state before the update
+  
+    setCar((prevCar) => {
+      const updatedAttributeTypes = [...prevCar.attributeTypes];
+      if (name === "attributeType") {
+        updatedAttributeTypes[typeIndex].type = value;
+      } else {
+        updatedAttributeTypes[typeIndex].items[valueIndex][name] = value;
+      }
+      return { ...prevCar, attributeTypes: updatedAttributeTypes };
+    });
   };
 
   const addAttributeType = () => {
@@ -36,8 +41,13 @@ export const AddCarAttributeForm = () => {
   };
 
   const handleOnSubmit = () => {
+    console.log(car)
     dispatch({ type: 'manageCar', car });
-    navigate("/manage-car/images");
+    console.log(params.sku)
+    if (params.sku)
+      navigate(`/manage-car/car/images/${params.sku}`);
+    else
+      navigate("/manage-car/car/images");
   }
 
   return (
@@ -59,7 +69,7 @@ export const AddCarAttributeForm = () => {
                     onChange={(e) => handleInputChange(typeIndex, 0, e)}
                   />
                 </Form.Group>
-                {attribute.items.map((value, valueIndex) => (
+                {attribute.items.map((item, valueIndex) => (
                   <Row key={valueIndex}>
                     <Col md={6}>
                       <Form.Group className="mb-3" controlId={`value${typeIndex}_${valueIndex}`}>
@@ -68,7 +78,7 @@ export const AddCarAttributeForm = () => {
                           type="text"
                           placeholder="Value"
                           name={`value`}
-                          value={value.name}
+                          value={item.value}
                           onChange={(e) => handleInputChange(typeIndex, valueIndex, e)}
                         />
                       </Form.Group>
@@ -80,7 +90,7 @@ export const AddCarAttributeForm = () => {
                           type="number"
                           placeholder="Additional Price"
                           name={`additionalPrice`}
-                          value={value.additionalPrice}
+                          value={item.additionalPrice}
                           onChange={(e) => handleInputChange(typeIndex, valueIndex, e)}
                         />
                       </Form.Group>

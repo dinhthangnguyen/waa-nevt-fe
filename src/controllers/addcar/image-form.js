@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Col, Container, Row, Table } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
@@ -10,14 +10,15 @@ import DeleteImage from "../../images/delete-logo.png"
 import "./index.css"
 
 export const AddCarImageForm = () => {
+    const params = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { PostClient } = useAPI();
+    const { PostClient, PutClient } = useAPI();
 
     const user = useSelector(state => state.user);
 
     const inittialCar = useSelector(state => state.car);
-    const [car, setCar] = useState({ ...inittialCar, images: [] });
+    const [car, setCar] = useState(inittialCar);
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -27,11 +28,21 @@ export const AddCarImageForm = () => {
     }
 
     const createCar = async (car) => {
-        const response = await PostClient("/api/cars", car, user.token);
+        console.log(car)
+        if(params.sku) {
+            const response = await PutClient(`/api/cars/${params.sku}`, car, user.token);
         if (response.status === 200) {
             let productNumber = response.data.productNumber;
             dispatch({ type: 'clearCar', car });
             navigate(`/cars/${productNumber}`);
+        }
+        } else {
+            const response = await PostClient("/api/cars", car, user.token);
+            if (response.status === 200) {
+                let productNumber = response.data.productNumber;
+                dispatch({ type: 'clearCar', car });
+                navigate(`/cars/${productNumber}`);
+            }
         }
     }
 
@@ -59,8 +70,10 @@ export const AddCarImageForm = () => {
     }
 
     const showImagePreview = (image) => {
+        console.log(car);
         const imagePreviewElement = document.getElementById("imagePreview");
-        imagePreviewElement.setAttribute("src", host + "/api/images/" + {image})
+        imagePreviewElement.setAttribute("src", host + "/api/images/" + image)
+        console.log(host + "/api/images/" + image)
         imagePreviewElement.removeAttribute("class")
         imagePreviewElement.style.maxWidth = '100%';
         imagePreviewElement.style.maxHeight = '500px';

@@ -12,7 +12,8 @@ export const ManageOrderPage = () => {
     const { GetClient } = useAPI();
 
     const loadOrders = async () => {
-        const response = await GetClient(`/api/orders/manage?orderStatus=${statusFilter}`, user.token);
+        const url = statusFilter ? `/api/orders/manage?orderStatus=${statusFilter}` : '/api/orders/manage';
+        const response = await GetClient(url, user.token);
         if (response.status === 200) {
             console.log(response.data)
             setOrders(response.data);
