@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 import java.util.Optional;
@@ -73,5 +74,17 @@ public class CartPage {
 			delete.click();
 		}
 
+	}
+
+	public String changeQuantityOf (String carName, String quantity) {
+		Optional<WebElement> optional = getCartItem(carName);
+		if (optional.isPresent()) {
+			WebElement carElement = optional.get();
+			WebElement element = carElement.findElement(By.id("cart-cell-select"));
+			Select dropdown = new Select(element);
+			dropdown.selectByVisibleText(quantity);
+			return dropdown.getFirstSelectedOption().getText();
+		}
+		return "";
 	}
 }

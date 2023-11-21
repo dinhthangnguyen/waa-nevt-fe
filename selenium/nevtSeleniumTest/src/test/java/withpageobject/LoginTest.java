@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import withpageobject.pages.HomePage;
 import withpageobject.pages.LoginPage;
+import withpageobject.pages.SignupPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -16,6 +17,9 @@ import static org.junit.Assert.assertThat;
 public class LoginTest {
 
 	private static LoginPage loginPage;
+
+	private static SignupPage signupPage;
+
 	private static HomePage homePage;
 
 
@@ -35,6 +39,16 @@ public class LoginTest {
 	@AfterClass
 	public static void closeTheBrowser() {
 		loginPage.close();
+	}
+
+	@Test
+	public void signup()  {
+		String email = loginPage.insertEmail("admin@gmail.com");
+		assertThat(email,is("admin@gmail.com"));
+		String pass = loginPage.insertPassword("qwe123");
+		assertThat(pass,is("qwe123"));
+		homePage = loginPage.clickLoginAndWait();
+		assertThat(homePage.getHeaderTitle(),containsString("TODAY'S PICK"));
 	}
 
 	@Test
