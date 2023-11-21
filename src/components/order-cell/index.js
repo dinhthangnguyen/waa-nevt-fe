@@ -7,8 +7,8 @@ export const OrderCell = ({ order }) => {
     return (
         <Card >
             <Card.Body>
-                <Card.Title>ORDER STATUS: {order.orderStatus}</Card.Title>
-                <Card.Text>
+                <Card.Title name="orderStatus">ORDER STATUS: {order.orderStatus}</Card.Title>
+                <Card.Text name="orderTotal">
                     Total: <span className="text-success">${order.total}</span>
                 </Card.Text>
                 {order.items.map(e => (
@@ -20,24 +20,23 @@ export const OrderCell = ({ order }) => {
                 ))}
 
                 <ListGroup className="order-list-group">
-
-                    <ListGroup.Item>
+                    <ListGroup.Item name="orderCellName">
                         Name: {order.address.name}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item name="orderCellPhone">
                         Phone: {order.address.phone}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item name="orderCellEmail">
                         Email: {order.address.email}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item name="orderCellAddress">
                         Address: {order.address.street} {order.address.city} {order.address.zip}
                     </ListGroup.Item>
                 </ListGroup>
 
                 <ListGroup className="order-list-group">
 
-                    <ListGroup.Item>
+                    <ListGroup.Item name="orderCellCardType">
                         Paid By: {order.card.type}
                     </ListGroup.Item>
 

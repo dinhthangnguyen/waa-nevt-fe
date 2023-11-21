@@ -6,7 +6,6 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import "./index.css";
-import { useState } from 'react';
 
 export function CustomNavBar() {
   const user = useSelector(state => state.user);
@@ -80,7 +79,7 @@ export function CustomNavBar() {
               </Nav.Link>
             }
             {user &&
-              <NavDropdown className="fw-bold" title={(user.firstName + " " + user.lastName).toUpperCase()} id="basic-nav-dropdown">
+              <NavDropdown className="fw-bold" title={(user.firstName + " " + user.lastName).toUpperCase()} id="name-dropdown">
                 <NavDropdown.Item onClick={() => { openPage("/orders") }}>Orders</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logout}>Log out</NavDropdown.Item>

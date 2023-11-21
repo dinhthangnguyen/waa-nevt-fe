@@ -8,6 +8,7 @@ import useAPI from "../../api";
 
 export const CheckoutCard = () => {
     const order = useSelector(state => state.order);
+    const user =  useSelector(state => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const initialData = { type: "", number: "", validDate: "", validCode: "" };
@@ -19,6 +20,11 @@ export const CheckoutCard = () => {
     const [cvvError, setCvvError] = useState({});
 
     useEffect(()=>{
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+
         if (order.card) {
             setCard(order.card);
         }
@@ -77,7 +83,7 @@ export const CheckoutCard = () => {
     return (
         <Container>
             <Form onSubmit={handleSubmit}>
-                <h2 class="text-center">Please Provide Your Card</h2>
+                <h2 id="cardTitle" class="text-center">Please Provide Your Card</h2>
                 <Row>
                 <Col sm={6}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -156,7 +162,7 @@ export const CheckoutCard = () => {
 
                     </Col>
                 </Row>
-                <Button className="btn btn-dark" size="lg" type="submit" variant="dark">Next</Button>
+                <Button id="cardNext" className="btn btn-dark" size="lg" type="submit" variant="dark">Next</Button>
             </Form>
 
 

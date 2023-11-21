@@ -27,12 +27,12 @@ export const OrderPage = () => {
         <Container>
             <Row className=" text-center">
                 <div>
-                    <h1 id="carName">ORDERS</h1>
+                    <h1 id="orderTitle">ORDERS</h1>
                 </div>
             </Row>
             <Row >
                 {orders.map(e => (
-                    <Col lg={12} key={e.orderId}>
+                    <Col lg={12} className="order-cell" key={e.orderId}>
                        <div className="order-row">
                        <OrderCell order={e} />
                        </div>
