@@ -13,6 +13,7 @@ export const CartPage = () => {
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
 
+
     const checkout = (e) => {
         e.preventDefault();
         const order = {items: carts, email: user.email, orderStatus: "PLACED", total: total, address: ""};
@@ -25,8 +26,13 @@ export const CartPage = () => {
     }
 
     useEffect(() => {
+        if (!user) {
+            navigate("/login");
+            return;
+        }
         let temp = carts.map(e => e.totalPrice).reduce((a, b) => a + b, 0);
         setTotal(temp);
+        
     }, [carts])
 
     const deleteF = (item) => {

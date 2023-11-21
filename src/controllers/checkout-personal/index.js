@@ -8,12 +8,10 @@ import { useNavigate } from 'react-router-dom';
 export const CheckoutPersonalInfo = () => {
     const user = useSelector(state => state.user);
     const order = useSelector(state => state.order);
-
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const initialData = { name: user.firstName + " " + user.lastName, email: user.email, phone: "", street: "", city: "", zip: "" }
-    const [address, setAddress] = useState(initialData);
-
+    const [address, setAddress] = useState({});
     const [nameError, setNameError] = useState({});
     const [emailError, setEmailError] = useState({});
     const [phoneError, setPhoneError] = useState({});
@@ -22,6 +20,14 @@ export const CheckoutPersonalInfo = () => {
     const [zipError, setZipError] = useState({});
 
     useEffect(() => {
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+
+        const initialData = { name: user.firstName ?? "" + " " + user.lastName ?? "", email: user.email, phone: "", street: "", city: "", zip: "" }
+        setAddress(initialData);
+
         if (order.address.name) {
             setAddress(order.address);
         }

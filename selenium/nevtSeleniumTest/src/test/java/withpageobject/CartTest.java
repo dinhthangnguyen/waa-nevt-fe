@@ -46,14 +46,13 @@ public class CartTest {
 	}
 
 	@Test
-	public void testCart()  {
+	public void testCartFlow()  {
 		String email = loginPage.insertEmail("admin@gmail.com");
 		assertThat(email,is("admin@gmail.com"));
 		String pass = loginPage.insertPassword("qwe123");
 		assertThat(pass,is("qwe123"));
 		loginPage.clickLoginAndWait();
 		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
-
 
 		carPage.open("http://localhost:3000/cars/b8f29c31-6f79-4cc4-b939-f5048d4a4f3c");
 		String selected = carPage.selectState("1");

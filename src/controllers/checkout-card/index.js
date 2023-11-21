@@ -8,6 +8,7 @@ import useAPI from "../../api";
 
 export const CheckoutCard = () => {
     const order = useSelector(state => state.order);
+    const user =  useSelector(state => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const initialData = { type: "", number: "", validDate: "", validCode: "" };
@@ -19,6 +20,11 @@ export const CheckoutCard = () => {
     const [cvvError, setCvvError] = useState({});
 
     useEffect(()=>{
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+
         if (order.card) {
             setCard(order.card);
         }
