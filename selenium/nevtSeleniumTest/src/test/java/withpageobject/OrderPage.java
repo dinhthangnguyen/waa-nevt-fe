@@ -22,11 +22,9 @@ public class OrderPage {
 		driver.close();
 	}
 
-	@FindBy(id = "addAddress")
-	private WebElement button;
 
-	@FindBy(id = "confirmTitle")
-	private WebElement confirmTitle;
+	@FindBy(id = "orderTitle")
+	private WebElement orderTitle;
 
 	@FindBy(id = "checkoutAddressSubtitle")
 	private WebElement checkoutAddressSubtitle;
@@ -62,7 +60,7 @@ public class OrderPage {
 
 
 	public String getTitle() {
-		return confirmTitle.getText();
+		return orderTitle.getText();
 	}
 
 	public String getTotalPrice() {

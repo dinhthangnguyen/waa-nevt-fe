@@ -27,7 +27,7 @@ export const OrderPage = () => {
         <Container>
             <Row className=" text-center">
                 <div>
-                    <h1 id="carName">ORDERS</h1>
+                    <h1 id="orderTitle">ORDERS</h1>
                 </div>
             </Row>
             <Row >

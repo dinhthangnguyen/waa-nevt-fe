@@ -26,7 +26,7 @@ export const CheckoutConfirmation = () => {
         <Container>
             <Row className=" text-center">
                 <div>
-                    <h1 id="confirmTitle">Checkout Confirmation</h1>
+                    <h1 id="confirmTitle">CHECKOUT CONFIRMATION</h1>
                 </div>
             </Row>
             {order.items &&

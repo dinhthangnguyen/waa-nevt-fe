@@ -26,6 +26,10 @@ public class CartTest {
 	private static AddressPage addressPage;
 
 	private static CardPage cardPage;
+
+	private static CheckoutConfirmPage confirmPage;
+
+	private static OrderPage orderPage;
 	WebDriver driver;
 
 	@Before
@@ -57,6 +61,7 @@ public class CartTest {
 		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
 
 		carPage.open("http://localhost:3000/cars/b8f29c31-6f79-4cc4-b939-f5048d4a4f3c");
+		assertThat(carPage.getCarName(),is("TESLA MODEL 3"));
 		String selected = carPage.selectState("1");
 		assertThat(selected,is("1"));
 		try {
@@ -82,7 +87,7 @@ public class CartTest {
 		addressPage.insertStreet("1000 N 4th Street");
 		addressPage.insertCity("Fairfield");
 		addressPage.insertZip("52557");
-		addressPage.insertPhone("123456789");
+		addressPage.insertPhone("6412339666");
 
 		// move to card pay
 		cardPage = addressPage.clickNext();
@@ -92,7 +97,23 @@ public class CartTest {
 		cardPage.insertCVV("333");
 		cardPage.insertDate("05/2025");
 		cardPage.selectVisa();
-		
+
+		confirmPage = cardPage.clickNext();
+
+		assertThat(confirmPage.getTitle(),is("CHECKOUT CONFIRMATION"));
+		assertThat(confirmPage.getTotalPrice(),containsString(price));
+		assertThat(confirmPage.getAddressTitle(),is("Address"));
+		assertThat(confirmPage.getName(),containsString("Dinh Thang Nguyen"));
+		assertThat(confirmPage.getEmail(),containsString("dnguyen@miu.edu"));
+		assertThat(confirmPage.getPhone(),containsString("6412339666"));
+		assertThat(confirmPage.getAddressFull(),containsString("1000 N 4th Street Fairfield 52557"));
+
+		assertThat(confirmPage.getCardNumber(),containsString("1234567890"));
+		assertThat(confirmPage.getCardType(),containsString("VISA"));
+		assertThat(confirmPage.getValidCode(),containsString("333"));
+		assertThat(confirmPage.getValidDate(),containsString("05/2025"));
+		orderPage = confirmPage.clickCheckout();
+//		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/orders"));
 
 	}
 

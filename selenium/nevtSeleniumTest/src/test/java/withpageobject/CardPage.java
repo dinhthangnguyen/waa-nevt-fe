@@ -19,10 +19,10 @@ public class CardPage {
 	@FindBy(name = "number")
 	private WebElement numberInput;
 
-	@FindBy(name = "VISA")
+	@FindBy(id = "VISA")
 	private WebElement visaRadioCheck;
 
-	@FindBy(name = "MASTERCARD")
+	@FindBy(id = "MASTERCARD")
 	private WebElement masterCardRadioCheck;
 
 	@FindBy(name = "validDate")
@@ -70,8 +70,8 @@ public class CardPage {
 	}
 
 
-	public Page3 clickNext() {
+	public CheckoutConfirmPage clickNext() {
 		nextButton.click();
-		return new Page3(driver);
+		return new CheckoutConfirmPage(driver);
 	}
 }

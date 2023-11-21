@@ -34,6 +34,9 @@ public class CarPage {
 	@FindBy(id = "carSelect")
 	private WebElement select;
 
+	@FindBy(id="carName")
+	private WebElement carName;
+
 	@FindBy(id = "total")
 	private WebElement totalElement;
 
@@ -49,6 +52,11 @@ public class CarPage {
 	public String getTotalPrice() {
 		return totalElement.getText();
 	}
+
+	public String getCarName() {
+		return carName.getText();
+	}
+
 
 	public CartPage clickAddToCart() {
 		button.click();
