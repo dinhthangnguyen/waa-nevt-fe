@@ -79,7 +79,7 @@ export const CartCell = ({ item, deleteF, onNumberChange, onReview = null }) => 
                     </div>
                     <div className="button-box">
                         {deleteF &&
-                            <Button value={item.car.productNumber} rounded variant="danger" onClick={handleDelete} >Delete</Button>
+                            <Button id="cartCellDelete" value={item.car.productNumber} rounded variant="danger" onClick={handleDelete} >Delete</Button>
                         }
 
                         {onReview &&
