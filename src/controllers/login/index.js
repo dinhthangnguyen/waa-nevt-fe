@@ -93,8 +93,8 @@ export const Login = () => {
                             ))}
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
-                            Submit
+                        <Button id="login" className="btn btn-dark" variant="dark" type="submit">
+                            Login
                         </Button>
                     </Form>
 

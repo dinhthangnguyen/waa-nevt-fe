@@ -37,7 +37,7 @@ export const CartPage = () => {
         <Container>
             <Row className=" text-center">
                 <div>
-                    <h1 id="carName">SHOPPING CART</h1>
+                    <h1 id="cartTitle">SHOPPING CART</h1>
                 </div>
             </Row>
             <Row>
@@ -55,7 +55,7 @@ export const CartPage = () => {
 
                 <Col lg={3} />
                 <Col lg={6} className=" gap-2 text-center addcart">
-                    <Button className="btn btn-dark" onClick={checkout} size="lg" variant="dark">Add Address</Button>
+                    <Button id="addAddress" className="btn btn-dark" onClick={checkout} size="lg" variant="dark">Add Address</Button>
                 </Col>
                 <Col lg={3} />
 

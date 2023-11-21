@@ -93,7 +93,7 @@ export const CheckoutPersonalInfo = () => {
     return (
         <Container>
             <Form onSubmit={handleSubmit}>
-                <h2 className="text-center">Fill in your info</h2>
+                <h2 id="addressTitle" className="text-center">Fill in your info</h2>
                 <Row>
                     <Col sm={6}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -176,7 +176,7 @@ export const CheckoutPersonalInfo = () => {
                     </Col>
                 </Row>
 
-                <Button className="btn btn-dark" size="lg" type="submit" variant="dark">Add Payment Card</Button>
+                <Button id="add-card" className="btn btn-dark" size="lg" type="submit" variant="dark">Add Payment Card</Button>
             </Form>
 
 
