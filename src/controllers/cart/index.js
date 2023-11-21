@@ -52,7 +52,7 @@ export const CartPage = () => {
             </Row>
             <Row>
                 {carts.map(e => (
-                    <Col lg={12} key={e.car.productNumber}>
+                    <Col lg={12} key={e.car.productNumber} className="cart-item">
                         <CartCell item={e} deleteF={deleteF} onNumberChange={onNumberChange} />
                     </Col>
                 ))}
