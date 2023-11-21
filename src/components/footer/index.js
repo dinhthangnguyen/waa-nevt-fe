@@ -27,8 +27,7 @@ export const CustomFooter = () => {
                                 <Nav.Link onClick={() => navigate("/about")} className="text-reset">About</Nav.Link>
                             </p>
                             <p>
-                                <Nav.Link onClick={() => navigate("/cars")} className="text-reset">Search Cars</Nav.Link>
-
+                                <Nav.Link onClick={() => navigate("/car-list")} className="text-reset">Search Cars</Nav.Link>
                             </p>
 
                         </div>

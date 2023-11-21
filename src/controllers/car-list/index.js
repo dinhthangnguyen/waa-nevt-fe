@@ -12,7 +12,8 @@ export const CarList = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await GetClient("/api/cars?searchKey=" + searchParams.get("search"));
+            let path = searchParams.get("search") ?  "/api/cars?searchKey=" + searchParams.get("search") : "/api/cars"
+            const response = await GetClient(path);
             if (response.status === 200) {
                 setCars(response.data);
             }
