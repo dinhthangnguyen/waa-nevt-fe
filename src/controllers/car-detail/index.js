@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import useAPI from "../../api";
 import { useNavigate, useParams } from "react-router-dom";
 import { Col, Container, Row, Button, Form } from "react-bootstrap";
-import { ImageGallery, OptionType } from "./components";
-import { useDispatch } from "react-redux";
+import { ImageGallery, OptionType, Review, ReviewList } from "./components";
+import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 
 export const CarDetail = () => {
+    const user = useSelector(state => state.user)
     const params = useParams();
     const { GetClient } = useAPI();
     const [car, setCar] = useState();
@@ -15,7 +16,6 @@ export const CarDetail = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [select, setSelect] = useState(false);
-
     useEffect(() => {
         const loadCar = async (sku) => {
             const response = await GetClient("/api/cars/" + sku);
@@ -144,6 +144,25 @@ export const CarDetail = () => {
                     </Row>
                 </Container>
             )}
+
+            {
+                user ? (
+                    <Container>
+                        <Row>
+                            <h3> Your review</h3>
+                        </Row>
+                        <Row>
+                            <Review />
+                        </Row>
+                    </Container>
+                )
+                    :
+                    <></>
+            }
+            <Container>
+                <ReviewList />
+            </Container>
+
         </div>
     )
 
