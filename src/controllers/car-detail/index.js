@@ -28,16 +28,13 @@ export const CarDetail = () => {
                 setTotalPrice(response.data.basePrice);
             }
         }
+        loadCar(params.sku);
 
-        async function fetching() {
-            await loadCar(params.sku);
-        }
-        fetching();
     }, [params])
 
-   
+
+
     const selectAtrribute = (data) => {
-        console.log(data.type);
         let temp = { ...car };
         let index = temp.attributeTypes.findIndex(e => e.type === data.type);
         let typeItem = temp.attributeTypes[index];
@@ -65,7 +62,7 @@ export const CarDetail = () => {
 
     const addToCart = (e) => {
         e.preventDefault();
-        dispatch({ type: "cart", item: {car: car, number: number, totalPrice: totalPrice} })
+        dispatch({ type: "cart", item: { car: car, number: number, totalPrice: totalPrice } })
         navigate("/cart");
     }
 
@@ -75,7 +72,7 @@ export const CarDetail = () => {
         if (value) {
             setSelect(true);
             setNumber(value);
-            calculateTotalPrice(car,value);
+            calculateTotalPrice(car, value);
         } else {
             setSelect(false);
         }
@@ -92,7 +89,9 @@ export const CarDetail = () => {
                         <div>
                             <h3 className="text-danger" id="rentPrice">Starting Price: $ {car.basePrice}</h3>
                         </div>
-
+                        <div>
+                            <h4 className={car.stockQuantity > 0 ? "text-info" : "text-secondary"} id="rentPrice">Stock: {car.stockQuantity}</h4>
+                        </div>
                         <div>
                             <p className="text-success" id="carDescription">{car.description}</p>
                         </div>
@@ -102,6 +101,11 @@ export const CarDetail = () => {
                         <ImageGallery images={car.images} firstHalf={true} />
                         <ImageGallery images={car.images} firstHalf={false} />
                     </Row>
+                </Container>
+            )}
+
+            {car && car.stockQuantity > 0 && (
+                <Container>
 
                     <Row className="text-center">
                         {car.attributeTypes.map(attributeType => (
@@ -119,14 +123,19 @@ export const CarDetail = () => {
                             <Form.Select onChange={numberChange} aria-label="Default select example">
                                 <option>Select number</option>
                                 <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
+                                {car.stockQuantity >= 2 &&
+                                    <option value="2">2</option>
+                                }
+                                {car.stockQuantity >= 3 &&
+                                    <option value="3">3</option>
+                                }
+                                {car.stockQuantity >= 4 &&
+                                    <option value="4">4</option>
+                                }
                             </Form.Select>
                         </Col>
                         <Col lg={5} />
                     </Row>
-
                     <Row>
                         <Col xs={12} className="mb-6 mb-lg-0 text-center total" >
                             <h4 id="total" className="card-title">Total Price: <span className="text-success">${totalPrice}</span> </h4>
@@ -137,7 +146,6 @@ export const CarDetail = () => {
                             <Button className="btn btn-dark" onClick={addToCart} disabled={!select} size="lg" variant="dark">Add To Cart</Button>
                         </Col>
                         <Col lg={3} />
-
                     </Row>
                     <Row>
                         <h5>Review</h5>

@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit"
 
 const user = localStorage.getItem("myuser") === null ? null : JSON.parse(localStorage.getItem("myuser"));
 const token = localStorage.getItem("token") === null ? "" : localStorage.getItem("token");
-const initialData = { token: token, user: user, carts: [], car: {}, order: {} };
+const intitalCarts = !localStorage.getItem("cart") ? [] : JSON.parse(localStorage.getItem("cart"));
+const initialData = { token: token, user: user, carts: intitalCarts ?? [], car: {}, order: {card: "", address: {}} , search: ""};
 
 const reducer = (state = initialData, action) => {
     if (action.type === "login") {
@@ -14,6 +15,7 @@ const reducer = (state = initialData, action) => {
     if (action.type === "cart") {
         let temp = [...state.carts];
         temp.push(action.item);
+        localStorage.setItem("cart",JSON.stringify(temp));
         return { ...state, carts: temp };
     }
 
@@ -22,35 +24,40 @@ const reducer = (state = initialData, action) => {
     }
 
     if (action.type === "clearOrder") {
-        return { ...state, order: {} };
-    }
-
-    if (action.type === "addAddress") {
-        let temp = {...state.order, address: action.address};
-        return { ...state, order: temp };
+        return { ...state,carts: [], order: {} };
     }
 
     if (action.type === "deleteCartItem") {
         let temp = state.carts.filter(e => e !== action.item);
+        if (temp.length === 0) {
+            return { ...state, carts: [], order: {} };
+        }
+        localStorage.setItem("cart",JSON.stringify(temp));
         return { ...state, carts: temp };
     }
     if (action.type === "updateCart") {
         let index = state.carts.findIndex(e => e === action.item);
         let temp = [...state.carts];
         temp[index] = action.newItem;
+        localStorage.setItem("cart",JSON.stringify(temp));
         return { ...state, carts: temp };
     }
 
     if (action.type === "logout") {
         localStorage.setItem("token", null);
         localStorage.setItem("myuser", null);
-        return { ...state, user: null, token: "" }
+        localStorage.setItem("cart",[]);
+        return { ...state, user: null, token: "", carts: [] }
     }
     if (action.type === "manageCar") {
         return {...state, car: action.car}
     }
     if (action.type === "clearCar") {
         return {...state, car: {}}
+    }
+
+    if (action.type === "search") {
+        return {...state, search: action.search};
     }
 
     return state;

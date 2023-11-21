@@ -10,3 +10,5 @@ export { CheckoutCard } from './checkout-card';
 export { AddCarAttributeForm } from './addcar/attribute-form'
 export { AddCarGeneralForm } from './addcar/general-form';
 export { AddCarImageForm } from './addcar/image-form';
+export { CheckoutConfirmation } from './checkout-confirmation';
+export { CarList } from './car-list';

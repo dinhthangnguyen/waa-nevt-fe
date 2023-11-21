@@ -55,7 +55,7 @@ export const CartPage = () => {
 
                 <Col lg={3} />
                 <Col lg={6} className=" gap-2 text-center addcart">
-                    <Button className="btn btn-dark" onClick={checkout} size="lg" variant="dark">Checkout</Button>
+                    <Button className="btn btn-dark" onClick={checkout} size="lg" variant="dark">Add Address</Button>
                 </Col>
                 <Col lg={3} />
 

@@ -1,13 +1,13 @@
 import React from "react";
-import { TodayPick, Trending, Affordable } from "./components";
+import { CarCollection } from "./components";
 import "./index.css"
 export const HomePage = () => {
 
     return (
         <>
-            <TodayPick />
-            <Trending />
-            <Affordable />
+            <CarCollection title={"TODAY'S PICK"} apiPath={"api/cars/todaypick"} />
+            <CarCollection title={"MOST AFFORDABLE"} apiPath={"api/cars/affordable"} />
+            <CarCollection title={"TRENDING"} apiPath={"api/cars/trending"} />
         </>
     )
 

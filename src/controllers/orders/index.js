@@ -1,37 +1,16 @@
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
+
+import { Col, Container, Row } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react";
 import useAPI from "../../api";
-import { useNavigate } from "react-router-dom";
-import { CartCell, StarRating } from "../../components";
+import { OrderCell, StarRating } from "../../components";
 import "./index.css";
 
-const OrderItem = ({ order }) => {
-    return (
-        <Container className="cartitem">
-            <Row >
-                <Col lg={12}>
-                    <Card.Title>ORDER STATUS: {order.orderStatus}</Card.Title>
-                    <Card.Text>
-                        Total: <span className="text-success">${order.total}</span>
-                    </Card.Text>
-                </Col>
-                {order.items.map(e => (
-                    <Col lg={12} key={e.car.productNumber}>
-                        <CartCell item={e} deleteF={null} onNumberChange={null} onReview={true} />
-                    </Col>
-                ))}
-            </Row>
 
-        </Container>
-
-    )
-}
 export const OrderPage = () => {
     const user = useSelector(state => state.user);
     const [orders, setOrders] = useState([]);
     const { GetClient } = useAPI();
-    const navigate = useNavigate();
 
     useEffect(() => {
         const loadOrders = async () => {
@@ -41,12 +20,8 @@ export const OrderPage = () => {
                 console.log(response.data);
             }
         }
-
-        async function fetching() {
-            await loadOrders();
-        }
-        fetching();
-    }, [user])
+       loadOrders();
+    }, [user]);
 
     return (
         <Container>
@@ -55,15 +30,16 @@ export const OrderPage = () => {
                     <h1 id="carName">ORDERS</h1>
                 </div>
             </Row>
-            <Row>
+            <Row >
                 {orders.map(e => (
-                    <Col lg={12} key={e.order}>
-                        <OrderItem order={e} />
+                    <Col lg={12} key={e.orderId}>
+                       <div className="order-row">
+                       <OrderCell order={e} />
+                       </div>
                     </Col>
                 ))}
             </Row>
         </Container>
-
     )
 }
 
