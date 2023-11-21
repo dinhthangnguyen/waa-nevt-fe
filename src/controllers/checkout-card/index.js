@@ -24,7 +24,10 @@ export const CheckoutCard = () => {
             navigate("/login");
             return;
         }
-
+        if (!order.items) {
+            navigate("/cart");
+        }
+        
         if (order.card) {
             setCard(order.card);
         }

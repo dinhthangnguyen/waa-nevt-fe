@@ -4,6 +4,7 @@ import useAPI from "../../api";
 import { useNavigate } from "react-router-dom";
 import { CartCell } from "../../components";
 import "./index.css";
+import { useEffect } from "react";
 
 
 export const CheckoutConfirmation = () => {
@@ -12,7 +13,17 @@ export const CheckoutConfirmation = () => {
     const { PostClient } = useAPI();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    console.log(order);
+
+    useEffect(()=>{
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+        if (!order.items) {
+            navigate("/cart");
+        }
+    },[]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await PostClient("/api/orders", order, user.token);

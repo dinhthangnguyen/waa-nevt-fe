@@ -16,13 +16,17 @@ export const CartPage = () => {
 
     const checkout = (e) => {
         e.preventDefault();
-        const order = {items: carts, email: user.email, orderStatus: "PLACED", total: total, address: ""};
-        dispatch({type: "createOrder", order: order});
+        if (carts.length == 0) {
+            navigate("/car-list");
+            return;
+        }
+        const order = { items: carts, email: user.email, orderStatus: "PLACED", total: total, address: "" };
+        dispatch({ type: "createOrder", order: order });
         navigate("/checkout/info");
     }
 
     const onNumberChange = (oldItem, newItem) => {
-        dispatch({type: "updateCart", item: oldItem, newItem: newItem});
+        dispatch({ type: "updateCart", item: oldItem, newItem: newItem });
     }
 
     useEffect(() => {
@@ -32,36 +36,38 @@ export const CartPage = () => {
         }
         let temp = carts.map(e => e.totalPrice).reduce((a, b) => a + b, 0);
         setTotal(temp);
-        
+
     }, [carts])
 
     const deleteF = (item) => {
-        dispatch({type: "deleteCartItem", item: item})
+        dispatch({ type: "deleteCartItem", item: item })
     }
 
     return (
         <Container>
             <Row className=" text-center">
                 <div>
-                    <h1 id="cartTitle">SHOPPING CART</h1>
+                    <h1 id="cartTitle">{carts.length == 0 ? "NO CART ITEMS" : "SHOPPING CART"}</h1>
                 </div>
             </Row>
             <Row>
                 {carts.map(e => (
                     <Col lg={12} key={e.car.productNumber}>
-                        <CartCell item={e} deleteF={deleteF} onNumberChange={onNumberChange}/>
+                        <CartCell item={e} deleteF={deleteF} onNumberChange={onNumberChange} />
                     </Col>
                 ))}
             </Row>
 
             <Row>
                 <Col xs={12} className="mb-6 mb-lg-0 text-center total" >
-                    <h4 id="total" className="card-title">Total Price: <span className="text-success">${total}</span> </h4>
+                    {carts.length !== 0 &&
+                        <h4 id="total" className="card-title">Total Price: <span className="text-success">${total}</span> </h4>
+                    }
                 </Col>
 
                 <Col lg={3} />
                 <Col lg={6} className=" gap-2 text-center addcart">
-                    <Button id="addAddress" className="btn btn-dark" onClick={checkout} size="lg" variant="dark">Add Address</Button>
+                    <Button id="addAddress" className="btn btn-dark" onClick={checkout} size="lg" variant="dark">{carts.length == 0 ? "Shop Now" : "Add Address"}</Button>
                 </Col>
                 <Col lg={3} />
 

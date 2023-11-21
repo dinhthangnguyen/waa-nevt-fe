@@ -25,6 +25,9 @@ export const CheckoutPersonalInfo = () => {
             return;
         }
 
+        if (!order.items) {
+            navigate("/cart");
+        }
         const initialData = { name: user.firstName ?? "" + " " + user.lastName ?? "", email: user.email, phone: "", street: "", city: "", zip: "" }
         setAddress(initialData);
 
