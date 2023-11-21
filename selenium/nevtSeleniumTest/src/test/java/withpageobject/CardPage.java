@@ -13,29 +13,26 @@ public class CardPage {
 		PageFactory.initElements(driver,this);
 	}
 
-	@FindBy(id = "title")
+	@FindBy(id = "cardTitle")
 	private WebElement title;
 
-	@FindBy(name = "name")
-	private WebElement nameInput;
+	@FindBy(name = "number")
+	private WebElement numberInput;
 
-	@FindBy(name = "email")
-	private WebElement emailInput;
+	@FindBy(name = "VISA")
+	private WebElement visaRadioCheck;
 
-	@FindBy(name = "phone")
-	private WebElement phoneInput;
+	@FindBy(name = "MASTERCARD")
+	private WebElement masterCardRadioCheck;
 
-	@FindBy(name = "street")
-	private WebElement streetInput;
+	@FindBy(name = "validDate")
+	private WebElement validDateInput;
 
-	@FindBy(name = "city")
-	private WebElement cityInput;
+	@FindBy(name = "validCode")
+	private WebElement validCodeInput;
 
-	@FindBy(name = "zip")
-	private WebElement zipInput;
-
-	@FindBy(id = "add-card")
-	private WebElement addCardButton;
+	@FindBy(id = "cardNext")
+	private WebElement nextButton;
 
 	public void open(String url) {
 		driver.get(url);
@@ -49,35 +46,32 @@ public class CardPage {
 		return title.getText();
 	}
 
-	public String insertName(String string) {
-		nameInput.sendKeys(string);
-		return nameInput.getAttribute("value");
-	}
-	public String insertEmail(String string) {
-		emailInput.sendKeys(string);
-		return emailInput.getAttribute("value");
-	}
-	public String insertPhone(String string) {
-		phoneInput.sendKeys(string);
-		return phoneInput.getAttribute("value");
-	}
-	public String insertStreet(String string) {
-		streetInput.sendKeys(string);
-		return streetInput.getAttribute("value");
+	public String insertNumber(String string) {
+		numberInput.sendKeys(string);
+		return numberInput.getAttribute("value");
 	}
 
-	public String insertCity(String string) {
-		cityInput.sendKeys(string);
-		return cityInput.getAttribute("value");
+	public String selectVisa() {
+		visaRadioCheck.click();
+		return visaRadioCheck.getAttribute("value");
 	}
-	public String insertZip(String string) {
-		zipInput.sendKeys(string);
-		return zipInput.getAttribute("value");
+	public String selectMasterCard() {
+		masterCardRadioCheck.click();
+		return masterCardRadioCheck.getAttribute("value");
+	}
+
+	public String insertDate(String string) {
+		validDateInput.sendKeys(string);
+		return validDateInput.getAttribute("value");
+	}
+	public String insertCVV(String string) {
+		validCodeInput.sendKeys(string);
+		return validCodeInput.getAttribute("value");
 	}
 
 
 	public Page3 clickNext() {
-		addCardButton.click();
+		nextButton.click();
 		return new Page3(driver);
 	}
 }

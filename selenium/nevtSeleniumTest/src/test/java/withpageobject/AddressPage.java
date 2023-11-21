@@ -23,27 +23,27 @@ public class AddressPage {
 
 	@FindBy(id = "addressTitle")
 	private WebElement addressTitle;
-//
-//	@FindBy(name = "name")
-//	private WebElement nameInput;
-//
-//	@FindBy(name = "email")
-//	private WebElement emailInput;
-//
-//	@FindBy(name = "phone")
-//	private WebElement phoneInput;
-//
-//	@FindBy(name = "street")
-//	private WebElement streetInput;
-//
-//	@FindBy(name = "city")
-//	private WebElement cityInput;
-//
-//	@FindBy(name = "zip")
-//	private WebElement zipInput;
-//
-//	@FindBy(id = "add-card")
-//	private WebElement addCardButton;
+
+	@FindBy(name = "name")
+	private WebElement nameInput;
+
+	@FindBy(name = "email")
+	private WebElement emailInput;
+
+	@FindBy(name = "phone")
+	private WebElement phoneInput;
+
+	@FindBy(name = "street")
+	private WebElement streetInput;
+
+	@FindBy(name = "city")
+	private WebElement cityInput;
+
+	@FindBy(name = "zip")
+	private WebElement zipInput;
+
+	@FindBy(id = "add-card")
+	private WebElement addCardButton;
 
 	public void open(String url) {
 		driver.get(url);
@@ -57,35 +57,45 @@ public class AddressPage {
 		return addressTitle.getText();
 	}
 
-//	public String insertName(String string) {
-//		nameInput.sendKeys(string);
-//		return nameInput.getAttribute("value");
-//	}
-//	public String insertEmail(String string) {
-//		emailInput.sendKeys(string);
-//		return emailInput.getAttribute("value");
-//	}
-//	public String insertPhone(String string) {
-//		phoneInput.sendKeys(string);
-//		return phoneInput.getAttribute("value");
-//	}
-//	public String insertStreet(String string) {
-//		streetInput.sendKeys(string);
-//		return streetInput.getAttribute("value");
-//	}
-//
-//	public String insertCity(String string) {
-//		cityInput.sendKeys(string);
-//		return cityInput.getAttribute("value");
-//	}
-//	public String insertZip(String string) {
-//		zipInput.sendKeys(string);
-//		return zipInput.getAttribute("value");
-//	}
+	public String insertName(String string) {
+		nameInput.sendKeys(string);
+		return nameInput.getAttribute("value");
+	}
+
+	public String clearName() {
+		nameInput.clear();
+		return nameInput.getAttribute("value");
+	}
+	public String insertEmail(String string) {
+		emailInput.sendKeys(string);
+		return emailInput.getAttribute("value");
+	}
+
+	public String clearEmail() {
+		emailInput.clear();
+		return emailInput.getAttribute("value");
+	}
+	public String insertPhone(String string) {
+		phoneInput.sendKeys(string);
+		return phoneInput.getAttribute("value");
+	}
+	public String insertStreet(String string) {
+		streetInput.sendKeys(string);
+		return streetInput.getAttribute("value");
+	}
+
+	public String insertCity(String string) {
+		cityInput.sendKeys(string);
+		return cityInput.getAttribute("value");
+	}
+	public String insertZip(String string) {
+		zipInput.sendKeys(string);
+		return zipInput.getAttribute("value");
+	}
 
 
-//	public CardPage clickNext() {
-//		addCardButton.click();
-//		return new CardPage(driver);
-//	}
+	public CardPage clickNext() {
+		addCardButton.click();
+		return new CardPage(driver);
+	}
 }

@@ -24,6 +24,8 @@ public class CartTest {
 	private static CarPage carPage;
 	private static CartPage cartPage;
 	private static AddressPage addressPage;
+
+	private static CardPage cardPage;
 	WebDriver driver;
 
 	@Before
@@ -72,6 +74,20 @@ public class CartTest {
 		// move to address page
 		addressPage = cartPage.clickAddress();
 		assertThat(addressPage.getAddressTitle(),is("FILL IN YOUR INFO"));
+		addressPage.clearName();
+		String name = addressPage.insertName("Dinh Thang Nguyen");
+		assertThat(name,is("Dinh Thang Nguyen"));
+		addressPage.clearEmail();
+		addressPage.insertEmail("dnguyen@miu.edu");
+		addressPage.insertStreet("1000 N 4th Street");
+		addressPage.insertCity("Fairfield");
+		addressPage.insertZip("52557");
+		addressPage.insertPhone("123456789");
+
+		// move to card pay
+		cardPage = addressPage.clickNext();
+		assertThat(cardPage.getTitle(),is("PLEASE PROVIDE YOUR CARD"));
+
 	}
 
 

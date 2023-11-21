@@ -83,7 +83,7 @@ export const CheckoutCard = () => {
     return (
         <Container>
             <Form onSubmit={handleSubmit}>
-                <h2 class="text-center">Please Provide Your Card</h2>
+                <h2 id="cardTitle" class="text-center">Please Provide Your Card</h2>
                 <Row>
                 <Col sm={6}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -162,7 +162,7 @@ export const CheckoutCard = () => {
 
                     </Col>
                 </Row>
-                <Button className="btn btn-dark" size="lg" type="submit" variant="dark">Next</Button>
+                <Button id="cardNext" className="btn btn-dark" size="lg" type="submit" variant="dark">Next</Button>
             </Form>
 
 
