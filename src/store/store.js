@@ -2,8 +2,8 @@ import { configureStore } from "@reduxjs/toolkit"
 
 const user = localStorage.getItem("myuser") === null ? null : JSON.parse(localStorage.getItem("myuser"));
 const token = localStorage.getItem("token") === null ? "" : localStorage.getItem("token");
-const intitalCarts = localStorage.getItem("cart") === null ? [] : JSON.parse(localStorage.getItem("cart"))
-const initialData = { token: token, user: user, carts: intitalCarts, car: {}, order: {} };
+const intitalCarts = !localStorage.getItem("cart") ? [] : JSON.parse(localStorage.getItem("cart"));
+const initialData = { token: token, user: user, carts: intitalCarts ?? [], car: {}, order: {card: "", address: {}} , search: ""};
 
 const reducer = (state = initialData, action) => {
     if (action.type === "login") {
@@ -46,14 +46,18 @@ const reducer = (state = initialData, action) => {
     if (action.type === "logout") {
         localStorage.setItem("token", null);
         localStorage.setItem("myuser", null);
-        localStorage.setItem("cart",null);
-        return { ...state, user: null, token: "" }
+        localStorage.setItem("cart",[]);
+        return { ...state, user: null, token: "", carts: [] }
     }
     if (action.type === "manageCar") {
         return {...state, car: action.car}
     }
     if (action.type === "clearCar") {
         return {...state, car: {}}
+    }
+
+    if (action.type === "search") {
+        return {...state, search: action.search};
     }
 
     return state;

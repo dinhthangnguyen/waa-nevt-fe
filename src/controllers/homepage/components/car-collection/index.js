@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ViewCarItem } from "./car-item";
-import useAPI from "../../../api";
+import useAPI from "../../../../api";
 import { Col, Container, Row } from "react-bootstrap";
+import { CarCell } from "../../../../components";
 
-export const Trending = () => {
+export const CarCollection = ({title, apiPath}) => {
 
     const [cars, setCars] = useState([]);
 
@@ -11,7 +11,7 @@ export const Trending = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await GetClient("/api/cars/trending");
+            const response = await GetClient(apiPath);
             if (response.status === 200) {
                 setCars(response.data);
             }
@@ -21,11 +21,11 @@ export const Trending = () => {
 
     return (
         <Container>
-            <Row><Col className="text-center"><h2>TRENDING</h2></Col></Row>
+            <Row><Col className="text-center"><h2>{title}</h2></Col></Row>
             <Row>
                 {cars.map((car) => (
                     <Col key={car.productNumber} sm={4}>
-                        <ViewCarItem car={car} />
+                        <CarCell car={car} />
                     </Col>
                 ))}
             </Row>
