@@ -12,3 +12,4 @@ export { AddCarGeneralForm } from './addcar/general-form';
 export { AddCarImageForm } from './addcar/image-form';
 export { CheckoutConfirmation } from './checkout-confirmation';
 export { CarList } from './car-list';
+export { ManageCar } from './manage-cars';

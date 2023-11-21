@@ -60,7 +60,7 @@ const useAPI = () => {
         return client.put(path, data, config);
     }
 
-    const DeleteClient = (path, data, token, headers = { "Content-Type": "Application/json" }) => {
+    const DeleteClient = (path, token, headers = { "Content-Type": "Application/json" }) => {
         let config = {
             headers: {
                 ...headers,
@@ -74,7 +74,7 @@ const useAPI = () => {
                 }
             }
         }
-        return client.delete(path, data, config);
+        return client.delete(path, config);
     }
 
     return { PostClient, GetClient, DeleteClient, PutClient }

@@ -25,7 +25,7 @@ export const CarCollection = ({title, apiPath}) => {
             <Row>
                 {cars.map((car) => (
                     <Col key={car.productNumber} sm={4}>
-                        <CarCell car={car} />
+                        <CarCell car={car} isManage={false}/>
                     </Col>
                 ))}
             </Row>

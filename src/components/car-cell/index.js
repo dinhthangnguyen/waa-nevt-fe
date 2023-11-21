@@ -3,12 +3,34 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 import { host } from "../../api";
+import useAPI from "../../api";
+import { useSelector } from "react-redux";
 
-export const CarCell = ({ car }) => {
+export const CarCell = ({ car, isManage, reloadAfterDelete }) => {
     const navigate = useNavigate();
+    const { DeleteClient } = useAPI();
+    const user = useSelector(state => state.user);
     const open = (e) => {
         e.preventDefault();
         navigate("/cars/"+ e.target.value);
+    }
+    const previewCar = (e) => {
+        e.preventDefault();
+        navigate("/cars/"+ e.target.value);
+    }
+    const editCar = (e) => {
+        e.preventDefault();
+        navigate("/manage-car/car/"+ e.target.value);
+    }
+    const deleteCar = (e) => {
+        e.preventDefault();
+        removeCar(e.target.value);
+    }
+    const removeCar = async (sku) => {
+        const response = await DeleteClient(`/api/cars/${sku}`, user.token);
+        if (response.status == 204) {
+            reloadAfterDelete();
+        }
     }
     return (
         <Card className="car-card d-flex flex-column">
@@ -23,7 +45,20 @@ export const CarCell = ({ car }) => {
                 <h5 className="card-text text-success">
                     {"$"}{car.basePrice}
                 </h5>
-                <Button onClick={open} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Buy Now!</Button>
+                {
+                    isManage ?
+                        (
+                            <>
+                                <Button onClick={previewCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Preview</Button>
+                                <Button onClick={editCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Edit</Button>                           
+                                <Button onClick={deleteCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Delete</Button>
+                            </>
+                    )
+                    : 
+                        (<Button onClick={open} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Buy Now!</Button>)
+                    
+                }
+                
             </Card.Body>
         </Card>
     )
