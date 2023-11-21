@@ -4,9 +4,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Col, Container, Row, Button, Form } from "react-bootstrap";
 import { ImageGallery, OptionType } from "./components";
 import { useDispatch } from "react-redux";
+import { StarRating } from "../../components";
 import "./index.css";
+import { useSelector } from "react-redux";
 
 export const CarDetail = () => {
+
+    const user = useSelector(state => state.user);
     const params = useParams();
     const { GetClient } = useAPI();
     const [car, setCar] = useState();
@@ -15,7 +19,7 @@ export const CarDetail = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [select, setSelect] = useState(false);
-
+    const [review, setReview] = useState({rating: 0, comment:"", email: "", productNumber:""})
     useEffect(() => {
         const loadCar = async (sku) => {
             const response = await GetClient("/api/cars/" + sku);
@@ -29,7 +33,7 @@ export const CarDetail = () => {
             await loadCar(params.sku);
         }
         fetching();
-    }, [params, GetClient])
+    }, [params])
 
    
     const selectAtrribute = (data) => {
@@ -76,6 +80,7 @@ export const CarDetail = () => {
             setSelect(false);
         }
     }
+
     return (
         <div className="car">
             {car && (
@@ -134,7 +139,10 @@ export const CarDetail = () => {
                         <Col lg={3} />
 
                     </Row>
-
+                    <Row>
+                        <h5>Review</h5>
+                        <StarRating />
+                    </Row>
                 </Container>
             )}
         </div>
