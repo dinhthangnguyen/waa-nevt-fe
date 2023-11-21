@@ -22,8 +22,7 @@ public class NevtTest {
 
 	private static LoginPage loginPage;
 	private static HomePage homePage;
-	private static Page3 page3;
-	private static Page4 page4;
+
 
 	@Before
 	public void createWebDriver() {
@@ -54,44 +53,4 @@ public class NevtTest {
 	}
 
 
-//	@Test
-//	public void testPages() {
-//		page.insertFirstName("Dinh Thang");
-//		page.insertLastName("Nguyen");
-//		page.selectProfession(3);
-//		homePage = page.clickNext();
-//
-//		assertThat(homePage.getFirstname().trim(),containsString("Dinh Thang"));
-//		assertThat(homePage.getLastName().trim(),containsString("Nguyen"));
-//		assertThat(homePage.getProfession().trim(),containsString("Developer"));
-//
-//		homePage.insertStreet("E Adams Ave");
-//		homePage.insertCity("Fairfield");
-//		homePage.insertZip("52556");
-//		homePage.selectState("IOWA");
-//		page3 = homePage.clickNext();
-//
-//
-//		assertThat(page3.getFirstname().trim(),containsString("Dinh Thang"));
-//		assertThat(page3.getLastName().trim(),containsString("Nguyen"));
-//		assertThat(page3.getProfession().trim(),containsString("Developer"));
-//		assertThat(page3.getStreet().trim(),containsString("E Adams Ave"));
-//		assertThat(page3.getCity().trim(),containsString("Fairfield"));
-//		assertThat(page3.getZip().trim(),containsString("52556"));
-//		assertThat(page3.getState().trim(),containsString("IOWA"));
-//
-//		page3.insertCard("123456789");
-//		page3.selectCardType(false);
-//		page4 = page3.clickNext();
-//
-//		assertThat(page4.getFirstname().trim(),containsString("Dinh Thang"));
-//		assertThat(page4.getLastName().trim(),containsString("Nguyen"));
-//		assertThat(page4.getProfession().trim(),containsString("Developer"));
-//		assertThat(page4.getStreet().trim(),containsString("E Adams Ave"));
-//		assertThat(page4.getCity().trim(),containsString("Fairfield"));
-//		assertThat(page4.getZip().trim(),containsString("52556"));
-//		assertThat(page4.getState().trim(),containsString("IOWA"));
-//		assertThat(page4.getCard().trim(),containsString("123456789"));
-//		assertThat(page4.getCardType().trim(),containsString("MASTERCARD"));
-//	}
 }
