@@ -2,9 +2,9 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
-import { host } from "../../../api";
+import { host } from "../../api";
 
-export const ViewCarItem = ({ car }) => {
+export const CarCell = ({ car }) => {
     const navigate = useNavigate();
     const open = (e) => {
         e.preventDefault();

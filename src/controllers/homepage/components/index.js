@@ -1,7 +1,3 @@
-export { ViewCarItem } from "./car-item";
 
-export { Affordable } from './affordable'
+export { CarCollection } from './car-collection'
 
-export { TodayPick } from './todaypick'
-
-export { Trending } from './trending'
