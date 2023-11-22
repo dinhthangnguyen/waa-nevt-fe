@@ -18,4 +18,6 @@ here is the git repo of FE (React) and FE Testing (Selenium): #2
 https://github.com/dinhthangnguyen/waa-nevt-fe
 
 here is our demo video: #3
-https://mum0-my.sharepoint.com/:v:/g/personal/dnguyen_miu_edu1/EdK1tqeg2lJKm6V2jVrS6cQBq2Ur8EW1uP7Izp9_JG0E9A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0RpcmVjdCJ9fQ&e=jWtN6y
+
+[![Demo Video](path/to/thumbnail-image)](https://mum0-my.sharepoint.com/:v:/g/personal/dnguyen_miu_edu1/EdK1tqeg2lJKm6V2jVrS6cQBq2Ur8EW1uP7Izp9_JG0E9A)
+
