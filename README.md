@@ -19,5 +19,5 @@ https://github.com/dinhthangnguyen/waa-nevt-fe
 
 here is our demo video: #3
 
-[![Demo Video](path/to/thumbnail-image)](https://mum0-my.sharepoint.com/:v:/g/personal/dnguyen_miu_edu1/EdK1tqeg2lJKm6V2jVrS6cQBq2Ur8EW1uP7Izp9_JG0E9A)
+[![Demo Video](docs/thumbnail/thumbnail.jpg)](https://mum0-my.sharepoint.com/:v:/g/personal/dnguyen_miu_edu1/EdK1tqeg2lJKm6V2jVrS6cQBq2Ur8EW1uP7Izp9_JG0E9A)
 
