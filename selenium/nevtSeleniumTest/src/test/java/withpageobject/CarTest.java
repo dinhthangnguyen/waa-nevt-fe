@@ -27,9 +27,9 @@ public class CarTest {
     @Before
     public void createWebDriver() {
         // set path to chromedriver.exe
-        System.setProperty("webdriver.chrome.driver", "C:\\tmp\\chromedriver-win64\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/Users/thangnguyen/Desktop/WAA/lab/lab13/chromedriver-mac-arm64/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("C:\\tmp\\chrome-headless-shell-win64\\chrome-headless-shell.exe");
+        options.setBinary("/Users/thangnguyen/Desktop/WAA/lab/lab13/chrome-headless-shell-mac-arm64/chrome-headless-shell");
         options.addArguments("--remote-allow-origins=*");
         // create chrome instance
         driver = new ChromeDriver(options);
