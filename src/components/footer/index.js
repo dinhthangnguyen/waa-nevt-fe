@@ -48,9 +48,9 @@ export const CustomFooter = () => {
                             <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
                             <p><i className="fas fa-home me-3"></i> FairField, IW 52557, US</p>
                             <p><i className="fas fa-home me-3"></i> dnguyen@miu.edu</p>
+                            <p><i className="fas fa-phone me-3"></i>SID: 616940</p>
                             <p><i className="fas fa-home me-3"></i> gtran@miu.edu</p>
-                            <p><i className="fas fa-phone me-3"></i> + 01 641 233 9637</p>
-                            <p><i className="fas fa-print me-3"></i> + 01 641 233 1442</p>
+                            <p><i className="fas fa-print me-3"></i>SID: 616944</p>
                         </div>
                     </div>
                 </div>
