@@ -145,22 +145,11 @@ export const CarDetail = () => {
                 </Container>
             )}
 
-            {
-                user ? (
-                    <Container>
-                        <Row>
-                            <h3> Your review</h3>
-                        </Row>
-                        <Row>
-                            <Review />
-                        </Row>
-                    </Container>
-                )
-                    :
-                    <></>
-            }
+
             <Container>
-                <ReviewList />
+                <Row>
+                    <Review />
+                </Row>
             </Container>
 
         </div>

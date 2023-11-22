@@ -55,7 +55,7 @@ export function CustomNavBar() {
               CARS
             </Nav.Link>
 
-            {!user && <NavDropdown title="LOGIN" id="basic-nav-dropdown">
+            {!user && <NavDropdown title="LOGIN" id="basic-nav-dropdown" className="bi bi-cart fw-bold">
               <NavDropdown.Item onClick={() => { openPage("/login") }}>Log In</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={() => { openPage("/signup") }}>Sign Up</NavDropdown.Item>
