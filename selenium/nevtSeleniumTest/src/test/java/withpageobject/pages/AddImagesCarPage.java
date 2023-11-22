@@ -24,14 +24,24 @@ public class AddImagesCarPage {
 
 	public CarPage clickSubmit() {
 		submitButton.click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		try {
-			wait.until(ExpectedConditions.urlContains("http://localhost:3000/cars"));
-			System.out.println("URL matched successfully: " + driver.getCurrentUrl());
-		} catch (TimeoutException e) {
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		try {
+//			wait.until(ExpectedConditions.urlMatches("^http:\\/\\/localhost:3000\\/cars\\/[a-f\\d]{8}-[a-f\\d]{4}-[a-f\\d]{4}-[a-f\\d]{4}-[a-f\\d]{12}$\n"));
+//			System.out.println("URL matched successfully: " + driver.getCurrentUrl());
+//		} catch (TimeoutException e) {
+//			System.err.println("Timeout waiting for URL to match. Current URL: " + driver.getCurrentUrl());
+//			e.printStackTrace();
+//		}
+		String currentUrlBeforeSubmit = driver.getCurrentUrl();
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Adjust the timeout as needed
+			wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrlBeforeSubmit)));
+		} catch (Exception e){
 			System.err.println("Timeout waiting for URL to match. Current URL: " + driver.getCurrentUrl());
 			e.printStackTrace();
 		}
+
+
 		return new CarPage(driver);
 	}
 
