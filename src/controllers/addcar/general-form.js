@@ -48,6 +48,7 @@ export const AddCarGeneralForm = () => {
                 <Col md={4}></Col>
                 <Col md={4}>
                     <Form onSubmit={handleOnSubmit}>
+                        <Button type="submit" id="submit-general" className="mt-auto btn btn-dark non-border-button">Next Step(1/3)</Button>
                         <Form.Group className="mb-3" controlId="formBasicName">
                             <Form.Label>Name</Form.Label>
                             <Form.Control type="text" placeholder="Name" name="name" value={car.name} onChange={handleFieldChange} />
@@ -75,8 +76,7 @@ export const AddCarGeneralForm = () => {
                         <Form.Group className="mb-3" controlId="formBasicStockQuantity">
                             <Form.Label>Stock Quantity</Form.Label>
                             <Form.Control type="number" placeholder="Stock Quantity" name="stockQuantity" value={car.stockQuantity} onChange={handleFieldChange} />
-                        </Form.Group>
-                        <Button type="submit" className="mt-auto btn btn-dark non-border-button">Next Step(1/3)</Button>
+                        </Form.Group> 
                     </Form>
 
                 </Col>
