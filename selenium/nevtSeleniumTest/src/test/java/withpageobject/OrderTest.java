@@ -50,13 +50,13 @@ public class OrderTest {
 	public void testWholeCreateOrderFlow()  {
 		String email = loginPage.insertEmail("dnguyen@miu.edu");
 		assertThat(email,is("dnguyen@miu.edu"));
-		String pass = loginPage.insertPassword("Qwe123");
-		assertThat(pass,is("Qwe123"));
+		String pass = loginPage.insertPassword("616940");
+		assertThat(pass,is("616940"));
 		loginPage.clickLoginAndWait();
 		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
 
-		carPage.open("http://localhost:3000/cars/b8f29c31-6f79-4cc4-b939-f5048d4a4f3c");
-		assertThat(carPage.getCarName(),is("TESLA MODEL 3"));
+		carPage.open("http://localhost:3000/cars/7d5c611a-6121-442b-a179-00984737bcdd");
+		assertThat(carPage.getCarName(),is("2024 TOYOTA PRIUS PRIME"));
 		String selected = carPage.selectState("1");
 		assertThat(selected,is("1"));
 		try {
@@ -120,10 +120,10 @@ public class OrderTest {
 		assertThat(orderPage.getPhone(orderItem),containsString("6412339666"));
 		assertThat(orderPage.getEmail(orderItem),containsString("dnguyen@miu.edu"));
 		assertThat(orderPage.getCardType(orderItem),containsString("VISA"));
-		// there should be one car => TESLA MODEL 3
-		WebElement titleOfCarElement = orderPage.getCartItem("TESLA MODEL 3");
+		// there should be one car => 2024 TOYOTA PRIUS PRIME
+		WebElement titleOfCarElement = orderPage.getCartItem("2024 TOYOTA PRIUS PRIME");
 		assertThat(titleOfCarElement.isDisplayed(),is(true));
-		assertThat(titleOfCarElement.getText(),containsString("TESLA MODEL 3"));
+		assertThat(titleOfCarElement.getText(),containsString("2024 TOYOTA PRIUS PRIME"));
 	}
 
 

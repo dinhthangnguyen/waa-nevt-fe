@@ -44,8 +44,8 @@ public class LoginTest {
 	public void testLogin()  {
 		String email = loginPage.insertEmail("admin@gmail.com");
 		assertThat(email,is("admin@gmail.com"));
-		String pass = loginPage.insertPassword("qwe123");
-		assertThat(pass,is("qwe123"));
+		String pass = loginPage.insertPassword("616940");
+		assertThat(pass,is("616940"));
 		homePage = loginPage.clickLoginAndWait();
 		assertThat(homePage.getHeaderTitle(),containsString("TODAY'S PICK"));
 	}

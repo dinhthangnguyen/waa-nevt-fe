@@ -48,13 +48,13 @@ public class CartTest {
 	public void testAddAndDeleteCartItem()  {
 		String email = loginPage.insertEmail("dnguyen@miu.edu");
 		assertThat(email,is("dnguyen@miu.edu"));
-		String pass = loginPage.insertPassword("Qwe123");
-		assertThat(pass,is("Qwe123"));
+		String pass = loginPage.insertPassword("616940");
+		assertThat(pass,is("616940"));
 		loginPage.clickLoginAndWait();
 		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
 
-		carPage.open("http://localhost:3000/cars/b8f29c31-6f79-4cc4-b939-f5048d4a4f3c");
-		assertThat(carPage.getCarName(),is("TESLA MODEL 3"));
+		carPage.open("http://localhost:3000/cars/7d5c611a-6121-442b-a179-00984737bcdd");
+		assertThat(carPage.getCarName(),is("2024 TOYOTA PRIUS PRIME"));
 		String selected = carPage.selectState("1");
 		assertThat(selected,is("1"));
 		try {
@@ -69,12 +69,12 @@ public class CartTest {
 		assertThat(cartPage.getTitle(),is("SHOPPING CART"));
 		assertThat(cartPage.getTotalPrice(),containsString(price));
 
-		Optional<WebElement> optional = cartPage.getCartItem("TESLA MODEL 3");
+		Optional<WebElement> optional = cartPage.getCartItem("2024 TOYOTA PRIUS PRIME");
 		assertThat(optional.get().isDisplayed(),is(true));
-		assertThat(optional.get().getText(),containsString("TESLA MODEL 3"));
+		assertThat(optional.get().getText(),containsString("2024 TOYOTA PRIUS PRIME"));
 
-		cartPage.deleteCartItem("TESLA MODEL 3");
-		 optional = cartPage.getCartItem("TESLA MODEL 3");
+		cartPage.deleteCartItem("2024 TOYOTA PRIUS PRIME");
+		 optional = cartPage.getCartItem("2024 TOYOTA PRIUS PRIME");
 		assertThat(optional.isEmpty(),is(true));
 		assertThat(cartPage.getTitle(),is("NO CART ITEMS"));
 	}
@@ -83,8 +83,8 @@ public class CartTest {
 	public void testChangeQuantityCartItem()  {
 		String email = loginPage.insertEmail("dnguyen@miu.edu");
 		assertThat(email,is("dnguyen@miu.edu"));
-		String pass = loginPage.insertPassword("Qwe123");
-		assertThat(pass,is("Qwe123"));
+		String pass = loginPage.insertPassword("616940");
+		assertThat(pass,is("616940"));
 		loginPage.clickLoginAndWait();
 		assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
 
