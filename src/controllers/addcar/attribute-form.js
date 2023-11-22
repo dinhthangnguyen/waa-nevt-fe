@@ -101,7 +101,7 @@ export const AddCarAttributeForm = () => {
               </Fragment>
             ))}
             <Button type="button" className="mt-auto btn btn-success non-border-button" onClick={addAttributeType}>Add Attribute Type</Button>
-            <Button type="submit" className="mt-auto btn btn-dark non-border-button">Next Step(2/3)</Button>
+            <Button type="submit" id="submit-attribute" className="mt-auto btn btn-dark non-border-button">Next Step(2/3)</Button>
           </Form>
         </Col>
         <Col md={4}></Col>
