@@ -33,25 +33,25 @@ export const CarCell = ({ car, isManage, reloadAfterDelete }) => {
         }
     }
     return (
-        <Card className="car-card d-flex flex-column">
+        <Card id="carItem" className="car-card d-flex flex-column">
             <Card.Img className ="car-card-image flex-grow-1" variant="top" src={host + "/api/images/" + car.images[0]} />
             <Card.Body className="d-flex flex-column">
-                <h5 className="card-text">
+                <h5 name="car-name" className="card-text">
                     {car.name}
                 </h5>
-                <Card.Text className="limited-height-text">
+                <Card.Text name="description" className="limited-height-text">
                     {car.description}
                 </Card.Text>
-                <h5 className="card-text text-success">
+                <h5 name="basePrice" className="card-text text-success">
                     {"$"}{car.basePrice}
                 </h5>
                 {
                     isManage ?
                         (
                             <>
-                                <Button onClick={previewCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Preview</Button>
-                                <Button onClick={editCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Edit</Button>                           
-                                <Button onClick={deleteCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Delete</Button>
+                                <Button id="preview-button" onClick={previewCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Preview</Button>
+                                <Button id="edit-button" onClick={editCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Edit</Button>                           
+                                <Button id= {`delete-button-${car.productNumber}`} onClick={deleteCar} value={car.productNumber} className="mt-auto btn btn-dark non-border-button">Delete</Button>
                             </>
                     )
                     : 

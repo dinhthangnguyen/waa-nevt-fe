@@ -8,8 +8,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import withpageobject.pages.*;
 
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReviewTest {
 
@@ -21,9 +25,9 @@ public class ReviewTest {
     @Before
     public void createWebDriver() {
         // set path to chromedriver.exe
-        System.setProperty("webdriver.chrome.driver", "/Users/thangnguyen/Desktop/WAA/lab/lab13/chromedriver-mac-arm64/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "C:\\tmp\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("/Users/thangnguyen/Desktop/WAA/lab/lab13/chrome-headless-shell-mac-arm64/chrome-headless-shell");
+        options.setBinary("C:\\tmp\\chrome-headless-shell-win64\\chrome-headless-shell.exe");
         options.addArguments("--remote-allow-origins=*");
         // create chrome instance
         driver = new ChromeDriver(options);
@@ -39,85 +43,58 @@ public class ReviewTest {
 
     @Test
     public void testCreateReview() {
-        String email = loginPage.insertEmail("gtran@miu.edu");
-        assertThat(email,is("gtran@miu.edu"));
-        String pass = loginPage.insertPassword("616944");
-        assertThat(pass,is("616944"));
+        String email = loginPage.insertEmail("dnguyen@miu.edu");
+        assertThat(email,is("dnguyen@miu.edu"));
+        String pass = loginPage.insertPassword("616940");
+        assertThat(pass,is("616940"));
         loginPage.clickLoginAndWait();
         assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
 
+        carPage.open("http://localhost:3000/cars/b8f29c31-6f79-4cc4-b939-f5048d4a4f3c");
         try{
             Thread.sleep(1000);
         }
         catch (Exception e) {
 
         }
-        System.out.println(driver.getCurrentUrl());
-
-        String title = "Vinfast 9";
-        assertThat(title, is("Vinfast 9"));
+        String review = carPage.enterReview("Hello");
+        assertThat(review, is("Hello"));
+        carPage.clickAddReview();
+        boolean isExistedYourReview = carPage.checkExistedYourReview();
+        assertThat(isExistedYourReview, is(true));
     }
 
-    @Test
-    public void testCreateReviewFailWithNonBuyCarAccount() {
-        String email = loginPage.insertEmail("gtran@miu.edu");
-        assertThat(email,is("gtran@miu.edu"));
-        String pass = loginPage.insertPassword("616944");
-        assertThat(pass,is("616944"));
-        loginPage.clickLoginAndWait();
-        assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
-
-        try{
-            Thread.sleep(1000);
-        }
-        catch (Exception e) {
-
-        }
-        System.out.println(driver.getCurrentUrl());
-
-        String title = "Vinfast 9";
-        assertThat(title, is("Vinfast 9"));
-    }
 
     @Test
     public void testGetOwnReview() {
-        String email = loginPage.insertEmail("gtran@miu.edu");
-        assertThat(email,is("gtran@miu.edu"));
-        String pass = loginPage.insertPassword("616944");
-        assertThat(pass,is("616944"));
+        String email = loginPage.insertEmail("dnguyen@miu.edu");
+        assertThat(email,is("dnguyen@miu.edu"));
+        String pass = loginPage.insertPassword("616940");
+        assertThat(pass,is("616940"));
         loginPage.clickLoginAndWait();
         assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
 
+        carPage.open("http://localhost:3000/cars/b8f29c31-6f79-4cc4-b939-f5048d4a4f3c");
         try{
             Thread.sleep(1000);
         }
         catch (Exception e) {
 
         }
-        System.out.println(driver.getCurrentUrl());
-
-        String title = "Vinfast 9";
-        assertThat(title, is("Vinfast 9"));
+        boolean isExistedYourReview = carPage.checkExistedYourReview();
+        assertThat(isExistedYourReview, is(true));
     }
 
     @Test
     public void testGetReviewList() {
-        String email = loginPage.insertEmail("gtran@miu.edu");
-        assertThat(email,is("gtran@miu.edu"));
-        String pass = loginPage.insertPassword("616944");
-        assertThat(pass,is("616944"));
-        loginPage.clickLoginAndWait();
-        assertThat(driver.getCurrentUrl(),is("http://localhost:3000/"));
-
+        carPage.open("http://localhost:3000/cars/b8f29c31-6f79-4cc4-b939-f5048d4a4f3c");
         try{
             Thread.sleep(1000);
         }
         catch (Exception e) {
 
         }
-        System.out.println(driver.getCurrentUrl());
-
-        String title = "Vinfast 9";
-        assertThat(title, is("Vinfast 9"));
+        boolean isHaveReviewTable = carPage.checkExistedReviewTable();
+        assertThat(isHaveReviewTable, is(true));
     }
 }

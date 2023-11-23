@@ -88,8 +88,7 @@ export const AddCarImageForm = () => {
     return (
 
         <Container className="box">
-            <Row><Col className="text-center"><h2>Upload Images</h2></Col></Row>
-            <Button type="button" id="submit-image" onClick={handleOnSubmit} className="mt-auto btn btn-dark non-border-button">Complete(3/3)</Button>
+            <Row><Col className="text-center"><h2>Upload Images</h2></Col></Row> 
             <Row>
                 <Col md={2}></Col>
                 <Col md={8}>
@@ -130,6 +129,7 @@ export const AddCarImageForm = () => {
                 </Col>
                 <Col md={2}></Col>
             </Row>
+            <Button type="button" id="submit-image" onClick={handleOnSubmit} className="mt-auto btn btn-dark non-border-button">Complete(3/3)</Button>
         </Container>
 
     );

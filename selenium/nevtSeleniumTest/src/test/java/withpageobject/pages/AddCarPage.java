@@ -2,12 +2,16 @@ package withpageobject.pages;
 
 import com.beust.ah.A;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -49,9 +53,6 @@ public class AddCarPage {
 
 	@FindBy(id = "formBasicStockQuantity")
 	private WebElement stockQuantityInput;
-
-	@FindBy(id = "submit-general")
-	private WebElement submitButton;
 
 	public String insertName(String string) {
 		nameInput.clear();
@@ -96,7 +97,19 @@ public class AddCarPage {
 	}
 
 	public AddAttributeCarPage clickSubmit() {
-		submitButton.click();
+		WebElement submitButton = driver.findElement(By.id("submit-general"));
+
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+
+		// Wait for the element to be clickable and visible
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.and(
+				ExpectedConditions.visibilityOf(submitButton),
+				ExpectedConditions.elementToBeClickable(submitButton)
+		));
+
+		// Click the delete button
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitButton);
 		return new AddAttributeCarPage(driver);
 	}
 
