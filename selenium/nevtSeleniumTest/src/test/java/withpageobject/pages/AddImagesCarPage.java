@@ -16,9 +16,11 @@ public class AddImagesCarPage {
 		PageFactory.initElements(driver,this);
 	}
 
+	@FindBy(id = "submit-image")
+	private WebElement submitButton;
+
 	public CarPage clickSubmit() {
-		WebElement submitButton = driver.findElement(By.id("submit-image"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+		//WebElement submitButton = driver.findElement(By.id("submit-image"));
 
 		// Wait for the element to be clickable and visible
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -27,7 +29,7 @@ public class AddImagesCarPage {
 				ExpectedConditions.elementToBeClickable(submitButton)
 		));
 
-		// Click the delete button
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitButton);
 		return new CarPage(driver);
 	}

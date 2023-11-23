@@ -1,5 +1,6 @@
 package withpageobject.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,12 +25,14 @@ public class AddAttributeCarPage {
 
 	public AddImagesCarPage clickSubmit() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
 		try {
 			wait.until(ExpectedConditions.and(
 					ExpectedConditions.visibilityOf(submitButton),
 					ExpectedConditions.elementToBeClickable(submitButton)
 			));
-			submitButton.click();
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitButton);
 			return new AddImagesCarPage(driver);
 		} catch (TimeoutException e) {
 			System.err.println("Timeout waiting for URL to match. Current URL: " + driver.getCurrentUrl());

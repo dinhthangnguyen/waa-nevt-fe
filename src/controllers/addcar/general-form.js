@@ -97,13 +97,6 @@ export const AddCarGeneralForm = () => {
         setMakeError(makeE.makeShort);
         setStockQuantityError(stockE.stockENegative);
 
-        console.log(nameError);
-        console.log(basePriceError);
-        console.log(descriptionError);
-        console.log(yearError);
-        console.log(modelError);
-        console.log(makeError);
-        console.log(stockQuantityError);
         return validateE.isValid;
     }
 
