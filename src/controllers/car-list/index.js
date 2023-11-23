@@ -27,7 +27,9 @@ export const CarList = () => {
             <Row>
                 {cars.map((car) => (
                     <Col key={car.productNumber} sm={4}>
-                        <CarCell car={car} isManage={false}/>
+                        <div className="carItem">
+                            <CarCell car={car} isManage={false}/>
+                        </div>
                     </Col>
                 ))}
             </Row>
