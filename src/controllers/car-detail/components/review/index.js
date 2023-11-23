@@ -108,7 +108,6 @@ export const Review = () => {
           </Form>
         </Container>}
 
-      {reviewList.length > 0 &&
         <Container className="text-center" style={{ marginTop: "20px" }}>
           <Row>
             <h3> All Reviews</h3>
@@ -125,7 +124,7 @@ export const Review = () => {
                     <th>Review</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="review-table">
                   {
                     reviewList.map(o => (
                       <tr key={o.email}>
@@ -142,7 +141,6 @@ export const Review = () => {
             <Col lg={3}></Col>
           </Row>
         </Container>
-      }
     </>
   );
 }
